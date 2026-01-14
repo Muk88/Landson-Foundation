@@ -134,4 +134,33 @@
     .titleHeader {
         margin-bottom: 0.3cm;
     }
+
+    /* Auto-show overlay on mobile - no tap required */
+    .overlay {
+        opacity: 1;
+    }
+
+    /* Disable hover effects on mobile */
+    .card:hover {
+        transform: none;
+    }
+
+    .card:hover .image {
+        transform: none;
+    }
+}
+
+/* For touch devices - auto-show overlay */
+@media (hover: none) and (pointer: coarse) {
+    .overlay {
+        opacity: 1;
+    }
+
+    .card:hover {
+        transform: none;
+    }
+
+    .card:hover .image {
+        transform: none;
+    }
 }
