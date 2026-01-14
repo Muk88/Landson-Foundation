@@ -1,0 +1,192 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2d5016 0%, #e31e24 100%);
+}
+
+.videoBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.4;
+    animation: slowZoom 25s ease-in-out infinite alternate;
+    mix-blend-mode: overlay;
+}
+
+@keyframes slowZoom {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1.15) rotate(1deg);
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.25) 30%, rgba(45, 80, 22, 0.25) 70%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.2) 30%, rgba(227, 30, 36, 0.2) 70%, transparent 70%);
+    background-size: 60px 60px;
+    z-index: 2;
+    animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+
+    100% {
+        background-position: 60px 60px, -60px -60px;
+    }
+}
+
+.content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--color-white);
+    padding: 0 var(--spacing-md);
+    max-width: 900px;
+}
+
+.headline {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    margin-bottom: var(--spacing-lg);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    animation: fadeInUp 1s ease-out;
+    font-style: italic;
+    background: linear-gradient(135deg, #fff 0%, #a8d5a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subheadline {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    margin-bottom: var(--spacing-2xl);
+    font-weight: 300;
+    opacity: 0.95;
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Visual Trio Section */
+.trioSection {
+    padding: var(--spacing-3xl) 0;
+    background: var(--color-gray-100);
+}
+
+.trioGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.trioCard {
+    height: 400px;
+}
+
+/* Impact Ticker Section */
+.impactSection {
+    padding: var(--spacing-3xl) 0;
+    background: var(--color-green);
+    color: var(--color-white);
+}
+
+.impactContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    text-align: center;
+}
+
+.impactTitle {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: var(--spacing-2xl);
+    color: var(--color-white);
+}
+
+.impactGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-2xl);
+}
+
+.impactCard {
+    text-align: center;
+}
+
+.impactNumber {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--color-red);
+    font-family: var(--font-heading);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.impactLabel {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.loading {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--color-gray-500);
+}
+
+@media (max-width: 768px) {
+    .ctaButtons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .trioGrid {
+        grid-template-columns: 1fr;
+    }
+}

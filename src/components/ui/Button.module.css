@@ -1,0 +1,131 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.button:disabled:hover {
+    transform: none;
+}
+
+/* Primary Variant - Red */
+.primary {
+    background: var(--color-red);
+    color: var(--color-white);
+    box-shadow: 0 4px 15px rgba(227, 30, 36, 0.3);
+}
+
+.primary:hover:not(:disabled) {
+    background: var(--color-red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(227, 30, 36, 0.4);
+}
+
+.primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Secondary Variant - Transparent with White Outline */
+.secondary {
+    background: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.secondary:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Outline Variant - Red Outline */
+.outline {
+    background: transparent;
+    color: var(--color-red);
+    border-color: var(--color-red);
+}
+
+.outline:hover:not(:disabled) {
+    background: var(--color-red);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+/* Small Size */
+.small {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+}
+
+/* Large Size */
+.large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.125rem;
+}
+
+/* Full Width */
+.fullWidth {
+    width: 100%;
+}
+
+/* Loading State */
+.loading {
+    position: relative;
+    color: transparent;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

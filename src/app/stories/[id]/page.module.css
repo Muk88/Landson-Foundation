@@ -1,0 +1,87 @@
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-3xl) var(--spacing-md);
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-red);
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    transition: transform var(--transition-fast);
+}
+
+.backLink:hover {
+    transform: translateX(-5px);
+}
+
+.header {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.athleteName {
+    color: var(--color-red);
+    margin-bottom: var(--spacing-sm);
+}
+
+.achievement {
+    font-size: 1.25rem;
+    color: var(--color-gray-600);
+    font-style: italic;
+}
+
+.featuredImage {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-gray-800);
+    margin-bottom: var(--spacing-2xl);
+    white-space: pre-wrap;
+}
+
+.videoContainer {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.videoContainer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.loading {
+    text-align: center;
+    padding: var(--spacing-3xl);
+}
+
+.error {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    color: var(--color-red);
+}
+
+@media (max-width: 768px) {
+    .featuredImage {
+        height: 300px;
+    }
+}

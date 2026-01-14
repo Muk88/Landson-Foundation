@@ -1,0 +1,86 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-red), var(--color-green));
+    padding: var(--spacing-md);
+}
+
+.loginBox {
+    background: var(--color-white);
+    padding: var(--spacing-3xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-width: 450px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.logo h1 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--color-red);
+    margin-bottom: 0.5rem;
+}
+
+.logo p {
+    color: var(--color-gray-600);
+    font-size: 0.9rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    font-weight: 600;
+    color: var(--color-gray-800);
+}
+
+.formGroup input {
+    padding: var(--spacing-sm);
+    border: 2px solid var(--color-gray-300);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: var(--color-red);
+}
+
+.submitButton {
+    margin-top: var(--spacing-md);
+}
+
+.errorMessage {
+    background: var(--color-red);
+    color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.backLink {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.backLink a {
+    color: var(--color-red);
+    font-weight: 600;
+}

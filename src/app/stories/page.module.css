@@ -1,0 +1,345 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 65vh;
+    min-height: 480px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2d5016 0%, #e31e24 100%);
+}
+
+.heroImage {
+    object-fit: cover;
+    opacity: 0.25;
+    animation: slowZoom 20s ease-in-out infinite alternate;
+    mix-blend-mode: overlay;
+}
+
+@keyframes slowZoom {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+
+    to {
+        transform: scale(1.2) rotate(2deg);
+    }
+}
+
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.3) 30%, rgba(45, 80, 22, 0.3) 70%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.25) 30%, rgba(227, 30, 36, 0.25) 70%, transparent 70%);
+    background-size: 60px 60px;
+    z-index: 1;
+    animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+
+    100% {
+        background-position: 60px 60px, -60px -60px;
+    }
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--color-white);
+    animation: fadeInUp 1s ease-out;
+}
+
+.heroTitle {
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    margin-bottom: var(--spacing-md);
+    font-weight: 900;
+    font-style: italic;
+    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    background: linear-gradient(135deg, #fff 0%, #ffd700 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.heroContent p {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 600;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section {
+    position: relative;
+    padding: var(--spacing-3xl) 0;
+    background:
+        linear-gradient(180deg, #f8f9fa 0%, #ffffff 50%, #f8f9fa 100%);
+    overflow: hidden;
+}
+
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+        repeating-linear-gradient(45deg,
+            transparent,
+            transparent 80px,
+            rgba(45, 80, 22, 0.02) 80px,
+            rgba(45, 80, 22, 0.02) 160px);
+    z-index: 0;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    position: relative;
+    z-index: 1;
+}
+
+/* Stories Grid - Masonry Style */
+.storiesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+}
+
+.storyCard {
+    position: relative;
+    background: var(--color-white);
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.8s ease-out backwards;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+}
+
+.storyCard:hover {
+    transform: translateY(-15px) rotate(1deg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.storyCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--color-green) 0%, var(--color-red) 100%);
+    z-index: 3;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.storyCard:hover::before {
+    transform: scaleX(1);
+}
+
+.storyImage {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+}
+
+.storyImage::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.3) 60%,
+            rgba(0, 0, 0, 0.7) 100%);
+    z-index: 1;
+}
+
+.storyCard:hover .storyImage img {
+    transform: scale(1.1) rotate(2deg);
+    filter: brightness(0.8);
+}
+
+.storyImage img {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.storyYear {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: linear-gradient(135deg, var(--color-green), var(--color-green-dark));
+    color: var(--color-white);
+    padding: 8px 20px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    z-index: 2;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.storyContent {
+    padding: var(--spacing-xl);
+    position: relative;
+}
+
+.storyContent::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: var(--spacing-xl);
+    width: 60px;
+    height: 60px;
+    background: var(--color-red);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    z-index: 2;
+    box-shadow: 0 6px 20px rgba(227, 30, 36, 0.4);
+    transition: all 0.4s ease;
+}
+
+.storyCard:hover .storyContent::before {
+    transform: rotate(45deg) scale(1.1);
+}
+
+.storyHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-sm);
+    gap: var(--spacing-sm);
+}
+
+.storyContent h3 {
+    color: var(--color-green);
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.storyBadge {
+    background: rgba(45, 80, 22, 0.1);
+    color: var(--color-green);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.storyContent h4 {
+    color: var(--color-red);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
+}
+
+.storyContent p {
+    color: var(--color-gray-700);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.loading {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    color: var(--color-gray-500);
+}
+
+.empty {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    color: var(--color-gray-600);
+}
+
+.empty h3 {
+    color: var(--color-gray-700);
+    margin-bottom: var(--spacing-md);
+}
+
+@media (max-width: 1024px) {
+    .storiesGrid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .storiesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .storyCard {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+    }
+
+    .storyImage {
+        height: 280px;
+    }
+
+    .heroTitle {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .storyContent::before {
+        width: 50px;
+        height: 50px;
+        top: -25px;
+    }
+
+    .storyHeader {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .storyBadge {
+        align-self: flex-start;
+    }
+}

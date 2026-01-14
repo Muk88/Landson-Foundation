@@ -1,0 +1,163 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: var(--color-white);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.header.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem var(--spacing-md);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-red);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    list-style: none;
+}
+
+.navLink {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-gray-800);
+    transition: color var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.navLink:hover {
+    color: var(--color-red);
+}
+
+.navLink.active {
+    color: var(--color-red);
+    font-weight: 600;
+}
+
+.donateButton {
+    margin-left: var(--spacing-sm);
+}
+
+/* Mobile Menu */
+.mobileMenuButton {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobileMenuButton span {
+    width: 25px;
+    height: 3px;
+    background: var(--color-gray-800);
+    transition: all var(--transition-fast);
+    border-radius: 2px;
+}
+
+.mobileMenuButton.open span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.mobileMenuButton.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobileMenuButton.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+.mobileNav {
+    display: none;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--color-white);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+    z-index: var(--z-dropdown);
+}
+
+.mobileNav.open {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.mobileNavLinks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.mobileNavLink {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--color-gray-800);
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.mobileNavLink:hover {
+    color: var(--color-red);
+}
+
+.mobileDonateButton {
+    margin-top: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .nav {
+        display: none;
+    }
+
+    .mobileMenuButton {
+        display: flex;
+    }
+}
