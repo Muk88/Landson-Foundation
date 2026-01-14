@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import Button from '../ui/Button'
 import styles from './Header.module.css'
@@ -36,7 +37,7 @@ export default function Header() {
         <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
-                    <span>LANDSON</span>
+                    <Image src="/images/logo1.png" alt="Landson Foundation" width={150} height={50} priority />
                 </Link>
 
                 <nav className={styles.nav}>
