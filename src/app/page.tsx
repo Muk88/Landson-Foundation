@@ -95,6 +95,71 @@ export default function HomePage() {
                     </div>
                 </section>
 
+                {/* Latest News Section */}
+                <section className={styles.newsSection}>
+                    <div className={styles.container}>
+                        <div className={styles.sectionHeader}>
+                            <h2>Latest News</h2>
+                            <p>Stay updated with our recent achievements and milestones</p>
+                        </div>
+                        <div className={styles.newsGrid}>
+                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
+                                <div className={styles.newsImageContainer}>
+                                    <Image
+                                        src="/images/education.jpg"
+                                        alt="Australian High Commissioner Meeting"
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                    <div className={styles.newsTag}>Partnership</div>
+                                </div>
+                                <div className={styles.newsCardContent}>
+                                    <div className={styles.newsDate}>January 2026</div>
+                                    <h3>Founder Meets Australian High Commissioner</h3>
+                                    <p>Alfred Koech Sergent met with the Australian High Commissioner to Kenya to discuss expanding educational opportunities for talented athletes.</p>
+                                </div>
+                            </div>
+
+                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
+                                <div className={styles.newsImageContainer}>
+                                    <Image
+                                        src="/images/future.jpg"
+                                        alt="Foundation Facility"
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                    <div className={styles.newsTag}>Infrastructure</div>
+                                </div>
+                                <div className={styles.newsCardContent}>
+                                    <div className={styles.newsDate}>December 2025</div>
+                                    <h3>Dream Realized: Facility Construction Complete</h3>
+                                    <p>The Landson Foundation training and education facility in Mosoriot is now complete, providing a dedicated space for athletes to train and study.</p>
+                                </div>
+                            </div>
+
+                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
+                                <div className={styles.newsImageContainer}>
+                                    <Image
+                                        src="/images/runner.jpg"
+                                        alt="Scholarship Recipients"
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                    <div className={styles.newsTag}>Success</div>
+                                </div>
+                                <div className={styles.newsCardContent}>
+                                    <div className={styles.newsDate}>October 2025</div>
+                                    <h3>Three Athletes Secure US Scholarships</h3>
+                                    <p>Nimrod Korir, Dismas Kipchumba, and Vivian Chepkemei secured full athletic scholarships to US universities.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.viewAllNews}>
+                            <Button onClick={() => router.push('/news')}>View All News</Button>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Modern Impact Section */}
                 <ImpactSection />
             </main>
