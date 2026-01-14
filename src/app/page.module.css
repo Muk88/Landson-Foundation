@@ -113,6 +113,9 @@
 .trioSection {
     padding: var(--spacing-3xl) 0;
     background: var(--color-gray-100);
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .trioGrid {
@@ -122,6 +125,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
+    width: 100%;
 }
 
 .trioCard {
@@ -178,6 +182,9 @@
 .newsSection {
     padding: var(--spacing-3xl) 0;
     background: var(--color-white);
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .sectionHeader {
