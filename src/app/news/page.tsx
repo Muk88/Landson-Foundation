@@ -1,15 +1,21 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import Button from '@/components/ui/Button'
 import styles from './page.module.css'
 
-export const metadata = {
-    title: 'News & Updates | Landson Foundation',
-    description: 'Latest news, updates, and achievements from the Landson Foundation',
-}
-
 export default function NewsPage() {
+    const [expandedItems, setExpandedItems] = useState<number[]>([])
+
+    const toggleExpand = (id: number) => {
+        setExpandedItems(prev =>
+            prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+        )
+    }
+
     const newsItems = [
         {
             id: 1,
@@ -114,11 +120,21 @@ Their success stories serve as inspiration for the next generation of athletes i
                                         <div className={styles.newsDate}>{item.date}</div>
                                         <h2>{item.title}</h2>
                                         <p className={styles.newsExcerpt}>{item.excerpt}</p>
-                                        <div className={styles.newsBody}>
-                                            {item.content.split('\n\n').map((paragraph, idx) => (
-                                                <p key={idx}>{paragraph}</p>
-                                            ))}
-                                        </div>
+
+                                        {expandedItems.includes(item.id) && (
+                                            <div className={styles.newsBody}>
+                                                {item.content.split('\n\n').map((paragraph, idx) => (
+                                                    <p key={idx}>{paragraph}</p>
+                                                ))}
+                                            </div>
+                                        )}
+
+                                        <Button
+                                            size="small"
+                                            onClick={() => toggleExpand(item.id)}
+                                        >
+                                            {expandedItems.includes(item.id) ? 'Read Less' : 'Read More'}
+                                        </Button>
                                     </div>
                                 </article>
                             ))}

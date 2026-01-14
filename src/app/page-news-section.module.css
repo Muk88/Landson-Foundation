@@ -1,0 +1,195 @@
+/* Latest News Section */
+.newsSection {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.newsSection::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(45, 80, 22, 0.04), transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+    z-index: 1;
+}
+
+.sectionHeader h2 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--color-green);
+    margin-bottom: var(--spacing-md);
+}
+
+.sectionHeader p {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--color-gray-600);
+}
+
+.newsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-2xl);
+    position: relative;
+    z-index: 1;
+}
+
+.newsCard {
+    background: var(--color-white);
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    animation: fadeInUp 0.8s ease-out backwards;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+}
+
+.newsCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-green), var(--color-red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+    z-index: 3;
+}
+
+.newsCard:hover::before {
+    transform: scaleX(1);
+}
+
+.newsCard:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.newsCard:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.newsCard:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.newsCard:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.newsImageContainer {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+}
+
+.newsImageContainer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    z-index: 1;
+}
+
+.newsImageContainer img {
+    transition: transform 0.6s ease;
+}
+
+.newsCard:hover .newsImageContainer img {
+    transform: scale(1.15);
+}
+
+.newsTag {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--color-green), var(--color-green-dark));
+    color: var(--color-white);
+    padding: 8px 20px;
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 0;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+}
+
+.newsCardContent {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.newsDate {
+    color: var(--color-red);
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.newsCardContent h3 {
+    color: var(--color-green);
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin: 0;
+    min-height: 60px;
+}
+
+.newsCardContent p {
+    color: var(--color-gray-600);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.viewAllNews {
+    text-align: center;
+    margin-top: var(--spacing-2xl);
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .newsGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .newsImageContainer {
+        height: 220px;
+    }
+
+    .newsCard {
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    }
+
+    .newsCardContent h3 {
+        font-size: 1.3rem;
+        min-height: auto;
+    }
+}

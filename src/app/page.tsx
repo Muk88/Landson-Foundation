@@ -117,7 +117,9 @@ export default function HomePage() {
                                 <div className={styles.newsCardContent}>
                                     <div className={styles.newsDate}>January 2026</div>
                                     <h3>Founder Meets Australian High Commissioner</h3>
-                                    <p>Alfred Koech Sergent met with the Australian High Commissioner to Kenya to discuss expanding educational opportunities for talented athletes.</p>
+                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
+                                        Read More
+                                    </Button>
                                 </div>
                             </div>
 
@@ -134,7 +136,9 @@ export default function HomePage() {
                                 <div className={styles.newsCardContent}>
                                     <div className={styles.newsDate}>December 2025</div>
                                     <h3>Dream Realized: Facility Construction Complete</h3>
-                                    <p>The Landson Foundation training and education facility in Mosoriot is now complete, providing a dedicated space for athletes to train and study.</p>
+                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
+                                        Read More
+                                    </Button>
                                 </div>
                             </div>
 
@@ -151,7 +155,9 @@ export default function HomePage() {
                                 <div className={styles.newsCardContent}>
                                     <div className={styles.newsDate}>October 2025</div>
                                     <h3>Three Athletes Secure US Scholarships</h3>
-                                    <p>Nimrod Korir, Dismas Kipchumba, and Vivian Chepkemei secured full athletic scholarships to US universities.</p>
+                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
+                                        Read More
+                                    </Button>
                                 </div>
                             </div>
                         </div>
