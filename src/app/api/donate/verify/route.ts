@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyPayment } from '@/lib/paystack'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 
 export async function GET(request: NextRequest) {
     try {
@@ -8,47 +8,79 @@ export async function GET(request: NextRequest) {
         const reference = searchParams.get('reference')
 
         if (!reference) {
-            return NextResponse.redirect(
-                new URL('/donate?status=error&message=No reference provided', request.url)
+            return NextResponse.json(
+                { error: 'Payment reference is required' },
+                { status: 400 }
             )
         }
 
         // Verify payment with Paystack
-        const verification = await verifyPayment(reference)
+        const paymentData = await verifyPayment(reference)
 
-        if (!verification.status || verification.data.status !== 'success') {
-            // Update donation status to failed
-            await supabase
-                .from('donations')
-                .update({ payment_status: 'failed' })
-                .eq('payment_reference', reference)
-
-            return NextResponse.redirect(
-                new URL('/donate?status=error&message=Payment verification failed', request.url)
+        if (!paymentData.data || paymentData.data.status !== 'success') {
+            return NextResponse.json(
+                { error: 'Payment verification failed' },
+                { status: 400 }
             )
         }
 
-        // Update donation status to success
-        const { error } = await supabase
-            .from('donations')
-            .update({
-                payment_status: 'success',
-                amount: verification.data.amount / 100, // Convert from kobo to naira/KES
-            })
-            .eq('payment_reference', reference)
+        // Extract payment details
+        const { amount, metadata, customer } = paymentData.data
 
-        if (error) {
-            console.error('Database update error:', error)
+        // Check if donation already exists
+        const { data: existingDonation } = await supabaseAdmin
+            .from('donations')
+            .select('*')
+            .eq('payment_reference', reference)
+            .single()
+
+        // If donation already exists, return it as success
+        if (existingDonation) {
+            return NextResponse.json(
+                {
+                    success: true,
+                    donation: existingDonation,
+                },
+                { status: 200 }
+            )
         }
 
-        // Redirect to success page
-        return NextResponse.redirect(
-            new URL('/donate/success?reference=' + reference, request.url)
+        // Record donation in database
+        const { data: donation, error: dbError } = await supabaseAdmin
+            .from('donations')
+            .insert([
+                {
+                    amount: amount / 100, // Convert from kobo to KES
+                    donor_name: metadata.donor_name || 'Anonymous',
+                    donor_email: customer.email,
+                    donation_type: metadata.donation_type || 'General',
+                    payment_reference: reference,
+                    payment_status: 'completed',
+                },
+            ])
+            .select()
+            .single()
+
+        if (dbError) {
+            console.error('Database error:', dbError)
+            return NextResponse.json(
+                { error: 'Failed to record donation' },
+                { status: 500 }
+            )
+        }
+
+        return NextResponse.json(
+            {
+                success: true,
+                donation,
+            },
+            { status: 200 }
         )
-    } catch (error) {
-        console.error('Error verifying payment:', error)
-        return NextResponse.redirect(
-            new URL('/donate?status=error&message=Payment verification error', request.url)
+    } catch (error: any) {
+        console.error('Error verifying donation:', error)
+        return NextResponse.json(
+            { error: error.message || 'Failed to verify payment' },
+            { status: 500 }
         )
     }
 }

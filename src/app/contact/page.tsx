@@ -17,6 +17,37 @@ export default function ContactPage() {
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState('')
 
+    // Contact Info State
+    const [contactInfo, setContactInfo] = useState({
+        email: 'info@landsonfoundation.org',
+        phone: '+254 706 247 847',
+        address: 'Nandi County, Kenya'
+    })
+
+    // Fetch contact info on mount
+    React.useEffect(() => {
+        const fetchContactInfo = async () => {
+            try {
+                const response = await fetch('/api/contact')
+                if (response.ok) {
+                    const data = await response.json()
+                    if (data) {
+                        setContactInfo({
+                            email: data.email || 'info@landsonfoundation.org',
+                            phone: data.phone || '+254 706 247 847',
+                            address: data.address || 'Nandi County, Kenya'
+                        })
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to fetch contact info:', err)
+                // Keep using fallback values on error
+            }
+        }
+
+        fetchContactInfo()
+    }, [])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({
             ...formData,
@@ -89,8 +120,8 @@ export default function ContactPage() {
                                     <div className={styles.contactDetails}>
                                         <h3>Email</h3>
                                         <p>
-                                            <a href="mailto:thekenyanathlete@gmail.com">
-                                                thekenyanathlete@gmail.com
+                                            <a href={`mailto:${contactInfo.email}`}>
+                                                {contactInfo.email}
                                             </a>
                                         </p>
                                     </div>
@@ -104,7 +135,7 @@ export default function ContactPage() {
                                     </div>
                                     <div className={styles.contactDetails}>
                                         <h3>Phone</h3>
-                                        <p>+254 700 000 000</p>
+                                        <p>{contactInfo.phone}</p>
                                     </div>
                                 </div>
 
@@ -117,7 +148,7 @@ export default function ContactPage() {
                                     </div>
                                     <div className={styles.contactDetails}>
                                         <h3>Location</h3>
-                                        <p>Nandi County, Kenya</p>
+                                        <p>{contactInfo.address}</p>
                                     </div>
                                 </div>
                             </div>

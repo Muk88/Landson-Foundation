@@ -1,0 +1,268 @@
+/* Mission & Vision Section */
+.missionSection {
+    background: linear-gradient(135deg, rgba(45, 80, 22, 0.7), rgba(227, 30, 36, 0.6)),
+        url('/images/runner2.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: var(--spacing-2xl) 0;
+    color: var(--color-white);
+}
+
+.missionSection::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(45, 80, 22, 0.03), transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    position: relative;
+    z-index: 1;
+}
+
+.missionHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.missionHeader h2 {
+    color: var(--color-red);
+    font-size: 2.8rem;
+    font-weight: 900;
+    margin-bottom: var(--spacing-sm);
+    display: inline-block;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-white);
+    transform: skewX(-5deg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.missionHeader h2 span {
+    position: relative;
+    display: inline-block;
+    color: var(--color-red);
+}
+
+.missionHeader h2 span::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--color-green);
+    border-radius: 1px;
+}
+
+.missionHeader h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-green);
+}
+
+.missionHeader h2::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--color-red);
+}
+
+.missionHeader p {
+    color: var(--color-white);
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Desktop Grid Layout */
+.missionGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-2xl);
+    /* Ensure no scroll on desktop */
+    overflow: visible;
+}
+
+/* Hide duplicate items on desktop */
+@media (min-width: 769px) {
+    .duplicateCard {
+        display: none;
+    }
+}
+
+.missionCard {
+    text-align: center;
+    padding: var(--spacing-md);
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out backwards;
+}
+
+.missionCard:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.missionCard:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.missionCard:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.missionCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-green), var(--color-red));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.missionCard:hover::before {
+    transform: scaleX(1);
+}
+
+.missionCard:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+}
+
+.missionIcon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto var(--spacing-md);
+    background: linear-gradient(135deg, var(--color-green), var(--color-green-dark));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 24px rgba(45, 80, 22, 0.2);
+}
+
+.missionCard:hover .missionIcon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 32px rgba(45, 80, 22, 0.3);
+}
+
+.missionCard h3 {
+    color: var(--color-green);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.missionCard p {
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Carousel Logic */
+@media (max-width: 768px) {
+    .missionWrapper {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    .missionGrid {
+        display: flex;
+        gap: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        grid-template-columns: none;
+    }
+
+    .missionCard {
+        /* Mobile card sizing */
+        min-width: 100%;
+        flex: 0 0 100%;
+        margin: 0;
+
+        /* Retain the card styling but adjust for mobile context if needed */
+        /* Reset animations/hover effects interaction on mobile might be weird, but styles are fine */
+        animation: none;
+        transform: none !important;
+        /* Disable hover transform */
+    }
+
+    .missionCard:hover {
+        transform: none !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        /* Reset to base shadow */
+    }
+
+    .duplicateCard {
+        display: block;
+    }
+
+    /* Indicators */
+    .indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
+    }
+
+    .activeDot {
+        background: var(--color-green);
+        width: 24px;
+        border-radius: 4px;
+    }
+
+    .missionHeader h2 {
+        font-size: 2rem;
+    }
+}

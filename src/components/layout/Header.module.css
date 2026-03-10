@@ -91,6 +91,64 @@
     width: 100%;
 }
 
+/* Dropdown Styles Desktop */
+.hasDropdown {
+    position: relative;
+    padding-bottom: 20px;
+    /* Bridge to menu */
+    margin-bottom: -20px;
+}
+
+.dropdownArrow {
+    font-size: 0.7em;
+    margin-left: 5px;
+    transition: transform 0.3s ease;
+}
+
+.hasDropdown:hover .dropdownArrow {
+    transform: rotate(180deg);
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: white;
+    min-width: 200px;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    list-style: none;
+    border-top: 3px solid var(--color-red);
+}
+
+.hasDropdown:hover .dropdownMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdownItem {
+    display: block;
+    padding: 10px 20px;
+    color: var(--color-gray-700);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.dropdownItem:hover {
+    background: rgba(227, 30, 36, 0.05);
+    color: var(--color-red);
+    padding-left: 25px;
+}
+
 .donateButton {
     margin-left: var(--spacing-sm);
 }
@@ -164,11 +222,53 @@
     }
 }
 
+/* Mobile Dropdown */
+.mobileDropdownWrapper {
+    width: 100%;
+}
+
+.mobileDropdownHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mobileArrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.mobileArrow.rotate {
+    transform: rotate(180deg);
+}
+
+.mobileDropdownMenu {
+    list-style: none;
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.mobileDropdownMenu.show {
+    max-height: 500px;
+}
+
+.mobileDropdownItem {
+    display: block;
+    padding: 10px 0;
+    color: var(--color-gray-600);
+    text-decoration: none;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 .mobileNavLinks {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 0;
 }
 
 .mobileNavLink {

@@ -5,10 +5,11 @@ import Button from '@/components/ui/Button'
 import { supabase } from '@/lib/supabase'
 
 export default function MetricsPage() {
+    const [id, setId] = useState<string | null>(null)
     const [metrics, setMetrics] = useState({
-        athletes_supported: 0,
-        school_fees_paid: 0,
-        medals_won: 0,
+        athletes_supported: '',
+        school_fees_paid: '',
+        medals_won: '',
     })
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
@@ -20,14 +21,22 @@ export default function MetricsPage() {
                 const { data, error } = await supabase
                     .from('impact_metrics')
                     .select('*')
-                    .single()
+                    .maybeSingle()
 
                 if (error) throw error
                 if (data) {
+                    setId(data.id)
                     setMetrics({
-                        athletes_supported: data.athletes_supported,
-                        school_fees_paid: data.school_fees_paid,
-                        medals_won: data.medals_won,
+                        athletes_supported: String(data.athletes_supported),
+                        school_fees_paid: String(data.school_fees_paid),
+                        medals_won: String(data.medals_won),
+                    })
+                } else {
+                    // Initialize with zeros if no data found
+                    setMetrics({
+                        athletes_supported: '0',
+                        school_fees_paid: '0',
+                        medals_won: '0',
                     })
                 }
             } catch (error) {
@@ -43,7 +52,7 @@ export default function MetricsPage() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMetrics({
             ...metrics,
-            [e.target.name]: parseInt(e.target.value) || 0,
+            [e.target.name]: e.target.value,
         })
     }
 
@@ -53,11 +62,38 @@ export default function MetricsPage() {
         setSuccess(false)
 
         try {
-            const { error } = await supabase
-                .from('impact_metrics')
-                .upsert([metrics])
+            // Convert to integers for saving
+            const payload = {
+                athletes_supported: parseInt(String(metrics.athletes_supported)) || 0,
+                school_fees_paid: parseInt(String(metrics.school_fees_paid)) || 0,
+                medals_won: parseInt(String(metrics.medals_won)) || 0,
+                updated_at: new Date().toISOString()
+            }
+
+            // Always update the single row if ID exists, or insert if clean slate
+            let query = supabase.from('impact_metrics')
+
+            let result;
+            if (id) {
+                result = await query.update(payload).eq('id', id).select().single()
+            } else {
+                result = await query.insert(payload).select().single()
+            }
+
+            const { data, error } = result
 
             if (error) throw error
+
+            if (data) {
+                setId(data.id)
+                // Normalize state back to string for inputs
+                setMetrics({
+                    athletes_supported: String(data.athletes_supported),
+                    school_fees_paid: String(data.school_fees_paid),
+                    medals_won: String(data.medals_won),
+                })
+            }
+
             setSuccess(true)
             setTimeout(() => setSuccess(false), 3000)
         } catch (error) {

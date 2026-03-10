@@ -129,3 +129,47 @@
         transform: rotate(360deg);
     }
 }
+
+/* Responsive Scaling for Tablets */
+@media (max-width: 768px) {
+    .button {
+        padding: 0.85rem 1.75rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.4px;
+    }
+
+    .small {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.8rem;
+    }
+
+    .large {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Responsive Scaling for Mobile */
+@media (max-width: 480px) {
+    .button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.3px;
+        border-width: 1.5px;
+    }
+
+    .small {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+
+    .large {
+        padding: 0.85rem 1.75rem;
+        font-size: 0.95rem;
+    }
+
+    .button:hover::before {
+        width: 200px;
+        height: 200px;
+    }
+}

@@ -12,7 +12,8 @@
 
 .heroImage {
     object-fit: cover;
-    opacity: 0.25;
+    object-position: center 30%;
+    opacity: 0.6;
     animation: slowZoom 20s ease-in-out infinite alternate;
     mix-blend-mode: overlay;
 }
@@ -34,8 +35,8 @@
     width: 100%;
     height: 100%;
     background:
-        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.3) 30%, rgba(45, 80, 22, 0.3) 70%, transparent 70%),
-        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.25) 30%, rgba(227, 30, 36, 0.25) 70%, transparent 70%);
+        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.1) 30%, rgba(45, 80, 22, 0.1) 70%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.1) 30%, rgba(227, 30, 36, 0.1) 70%, transparent 70%);
     background-size: 60px 60px;
     z-index: 1;
     animation: patternMove 20s linear infinite;

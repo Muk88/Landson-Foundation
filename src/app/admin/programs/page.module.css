@@ -1,0 +1,177 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-gray-900);
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    color: var(--color-gray-500);
+    font-size: 0.95rem;
+}
+
+.programsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.programCard {
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    transition: all 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+.programCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-gray-300);
+}
+
+.orderControls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.orderButton {
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+    padding: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orderButton:hover:not(:disabled) {
+    background: var(--color-gray-200);
+}
+
+.orderButton:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.orderIndex {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-gray-500);
+}
+
+.programContent {
+    flex: 1;
+}
+
+.programHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.programTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-red);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+.description {
+    color: var(--color-gray-700);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.statusBadge.active {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: var(--color-green);
+}
+
+.statusBadge.inactive {
+    background-color: rgba(107, 114, 128, 0.1);
+    color: var(--color-gray-600);
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.actions button {
+    min-width: 40px;
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    color: var(--color-gray-500);
+    border: 2px dashed var(--color-gray-200);
+}
+
+@media (max-width: 768px) {
+    .programCard {
+        grid-template-columns: 1fr;
+    }
+
+    .orderControls {
+        flex-direction: row;
+        order: 3;
+    }
+
+    .actions {
+        flex-direction: row;
+        order: 2;
+    }
+
+    .actions button {
+        flex: 1;
+    }
+}

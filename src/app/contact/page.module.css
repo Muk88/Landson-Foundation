@@ -12,7 +12,8 @@
 
 .heroImage {
     object-fit: cover;
-    opacity: 0.3;
+    object-position: center 30%;
+    opacity: 0.6;
     animation: slowZoom 20s ease-in-out infinite alternate;
     mix-blend-mode: overlay;
 }
@@ -34,8 +35,8 @@
     width: 100%;
     height: 100%;
     background:
-        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.35) 30%, rgba(45, 80, 22, 0.35) 70%, transparent 70%),
-        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.3) 30%, rgba(227, 30, 36, 0.3) 70%, transparent 70%);
+        linear-gradient(45deg, transparent 30%, rgba(45, 80, 22, 0.1) 30%, rgba(45, 80, 22, 0.1) 70%, transparent 70%),
+        linear-gradient(-45deg, transparent 30%, rgba(227, 30, 36, 0.1) 30%, rgba(227, 30, 36, 0.1) 70%, transparent 70%);
     background-size: 60px 60px;
     z-index: 1;
     animation: patternMove 20s linear infinite;
@@ -60,15 +61,29 @@
 }
 
 .heroTitle {
-    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-size: clamp(3.5rem, 8vw, 6rem);
     margin-bottom: var(--spacing-md);
     font-weight: 900;
     font-style: italic;
     text-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-    background: linear-gradient(135deg, #fff 0%, #a8d5a3 100%);
+    background: linear-gradient(135deg, #fff 0%, #ffd700 50%, #fff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .heroContent p {
@@ -241,6 +256,8 @@
     color: var(--color-gray-600);
     font-size: 1.1rem;
     line-height: 1.6;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 .contactDetails a {
@@ -461,21 +478,42 @@
 }
 
 @media (max-width: 640px) {
+    .hero {
+        height: 50vh;
+        min-height: 400px;
+    }
+
     .heroTitle {
-        font-size: 3rem;
+        font-size: 2.5rem;
+    }
+
+    .section {
+        padding: var(--spacing-xl) 0;
     }
 
     .formContainer {
         padding: var(--spacing-lg);
+        padding-bottom: calc(var(--spacing-lg) + 20px);
+        /* Ensure content clears clip-path */
+        clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    }
+
+    .contactItem {
+        padding: var(--spacing-md);
+        gap: var(--spacing-md);
     }
 
     .icon {
-        width: 50px;
-        height: 50px;
-        min-width: 50px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
     }
 
     .contactInfo h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .mapContainer {
+        height: 300px;
     }
 }

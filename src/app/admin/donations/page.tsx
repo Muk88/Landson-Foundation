@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { supabase, type Donation } from '@/lib/supabase'
+import styles from './page.module.css'
 
 export default function DonationsPage() {
     const [donations, setDonations] = useState<Donation[]>([])
@@ -36,18 +37,18 @@ export default function DonationsPage() {
     }
 
     return (
-        <>
-            <div className="header">
-                <h1>Donations</h1>
-                <p>Track all donation transactions</p>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1 className={styles.title}>Donations</h1>
+                <p className={styles.subtitle}>Track all donation transactions</p>
             </div>
 
-            <div className="content">
-                <div style={{ background: 'linear-gradient(135deg, var(--color-green), var(--color-green-dark))', color: 'white', padding: 'var(--spacing-xl)', borderRadius: 'var(--radius-lg)', marginBottom: 'var(--spacing-2xl)' }}>
-                    <div style={{ fontSize: '0.9rem', opacity: 0.9, marginBottom: '0.5rem' }}>
+            <div className={styles.content}>
+                <div className={styles.totalCard}>
+                    <div className={styles.totalLabel}>
                         TOTAL DONATIONS (SUCCESSFUL)
                     </div>
-                    <div style={{ fontSize: '3rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+                    <div className={styles.totalValue}>
                         KES {totalAmount.toLocaleString()}
                     </div>
                 </div>
@@ -55,60 +56,45 @@ export default function DonationsPage() {
                 {loading ? (
                     <div>Loading...</div>
                 ) : donations.length > 0 ? (
-                    <div style={{ overflowX: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                    <div className={styles.tableContainer}>
+                        <table className={styles.table}>
                             <thead>
-                                <tr style={{ borderBottom: '2px solid var(--color-gray-300)' }}>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', color: 'var(--color-red)' }}>Date</th>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', color: 'var(--color-red)' }}>Donor</th>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', color: 'var(--color-red)' }}>Type</th>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'right', color: 'var(--color-red)' }}>Amount</th>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', color: 'var(--color-red)' }}>Status</th>
-                                    <th style={{ padding: 'var(--spacing-md)', textAlign: 'left', color: 'var(--color-red)' }}>Reference</th>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Donor</th>
+                                    <th>Type</th>
+                                    <th style={{ textAlign: 'right' }}>Amount</th>
+                                    <th>Status</th>
+                                    <th>Reference</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {donations.map((donation) => (
-                                    <tr key={donation.id} style={{ borderBottom: '1px solid var(--color-gray-200)' }}>
-                                        <td style={{ padding: 'var(--spacing-md)' }}>
+                                    <tr key={donation.id}>
+                                        <td data-label="Date">
                                             {new Date(donation.created_at).toLocaleDateString()}
                                         </td>
-                                        <td style={{ padding: 'var(--spacing-md)' }}>
-                                            {donation.donor_name || 'Anonymous'}
+                                        <td data-label="Donor">
+                                            <div style={{ fontWeight: 600 }}>{donation.donor_name || 'Anonymous'}</div>
                                             {donation.donor_email && (
-                                                <div style={{ fontSize: '0.875rem', color: 'var(--color-gray-600)' }}>
+                                                <div style={{ fontSize: '0.85rem', color: 'var(--color-gray-500)' }}>
                                                     {donation.donor_email}
                                                 </div>
                                             )}
                                         </td>
-                                        <td style={{ padding: 'var(--spacing-md)', textTransform: 'capitalize' }}>
+                                        <td data-label="Type" style={{ textTransform: 'capitalize' }}>
                                             {donation.donation_type}
                                         </td>
-                                        <td style={{ padding: 'var(--spacing-md)', textAlign: 'right', fontWeight: 600 }}>
-                                            KES {donation.amount.toLocaleString()}
+                                        <td data-label="Amount" style={{ textAlign: 'right' }}>
+                                            <span className={styles.amount}>KES {donation.amount.toLocaleString()}</span>
                                         </td>
-                                        <td style={{ padding: 'var(--spacing-md)' }}>
-                                            <span
-                                                style={{
-                                                    display: 'inline-block',
-                                                    padding: '0.25rem 0.75rem',
-                                                    borderRadius: 'var(--radius-full)',
-                                                    fontSize: '0.875rem',
-                                                    background:
-                                                        donation.payment_status === 'success'
-                                                            ? 'var(--color-green)'
-                                                            : donation.payment_status === 'pending'
-                                                                ? 'var(--color-gray-500)'
-                                                                : 'var(--color-red)',
-                                                    color: 'white',
-                                                    textTransform: 'capitalize',
-                                                }}
-                                            >
+                                        <td data-label="Status">
+                                            <span className={`${styles.statusBadge} ${styles[donation.payment_status] || ''}`}>
                                                 {donation.payment_status}
                                             </span>
                                         </td>
-                                        <td style={{ padding: 'var(--spacing-md)', fontSize: '0.875rem', fontFamily: 'monospace', color: 'var(--color-gray-600)' }}>
-                                            {donation.payment_reference}
+                                        <td data-label="Reference">
+                                            <span className={styles.reference}>{donation.payment_reference}</span>
                                         </td>
                                     </tr>
                                 ))}
@@ -116,11 +102,11 @@ export default function DonationsPage() {
                         </table>
                     </div>
                 ) : (
-                    <div style={{ textAlign: 'center', padding: 'var(--spacing-3xl)', color: 'var(--color-gray-500)' }}>
+                    <div className={styles.emptyState}>
                         <p>No donations yet</p>
                     </div>
                 )}
             </div>
-        </>
+        </div>
     )
 }

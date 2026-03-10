@@ -5,7 +5,7 @@
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    padding: var(--spacing-3xl) 0;
+    padding: 0.5cm 0;
     color: var(--color-white);
 }
 
@@ -101,6 +101,10 @@
     height: 100%;
     object-fit: cover;
     transition: transform var(--transition-base);
+}
+
+.imageWrapper:nth-child(2) img {
+    object-position: center 30%;
 }
 
 .imageWrapper:hover img {

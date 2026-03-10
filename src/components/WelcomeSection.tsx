@@ -1,9 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Button from './ui/Button'
 import styles from './WelcomeSection.module.css'
 
-export default function WelcomeSection() {
+const WelcomeSection = React.memo(function WelcomeSection() {
     return (
         <section className={styles.welcomeSection}>
             <div className={styles.welcomeContainer}>
@@ -23,14 +24,26 @@ export default function WelcomeSection() {
                         </Link>
                     </div>
                     <div className={styles.storyImage}>
-                        <img src="/images/story-side.jpg" alt="Our Story" />
+                        <Image
+                            src="/images/story-side.jpg"
+                            alt="Our Story"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                        />
                     </div>
                 </div>
 
                 {/* Our Key Focus */}
                 <div className={styles.focusSection}>
                     <div className={styles.focusImage}>
-                        <img src="/images/future.jpg" alt="Our Focus" />
+                        <Image
+                            src="/images/future.jpg"
+                            alt="Our Focus"
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                        />
                     </div>
                     <div className={styles.focusContent}>
                         <div className={styles.sectionLabel}>What We Do</div>
@@ -49,4 +62,6 @@ export default function WelcomeSection() {
             </div>
         </section>
     )
-}
+})
+
+export default WelcomeSection

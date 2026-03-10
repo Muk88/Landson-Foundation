@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { initializePayment } from '@/lib/paystack'
-import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
     try {
@@ -8,9 +7,9 @@ export async function POST(request: NextRequest) {
         const { amount, email, name, donationType } = body
 
         // Validate input
-        if (!amount || !email || !donationType) {
+        if (!amount || !email) {
             return NextResponse.json(
-                { error: 'Amount, email, and donation type are required' },
+                { error: 'Amount and email are required' },
                 { status: 400 }
             )
         }
@@ -22,30 +21,12 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Initialize Paystack payment
+        // Initialize Paystack payment with metadata
+        // Donation will only be recorded after successful payment
         const paymentData = await initializePayment(email, amount, {
             donor_name: name || 'Anonymous',
-            donation_type: donationType,
+            donation_type: donationType || 'General',
         })
-
-        // Create pending donation record
-        const { error: dbError } = await supabase
-            .from('donations')
-            .insert([
-                {
-                    amount,
-                    donor_name: name || null,
-                    donor_email: email,
-                    payment_reference: paymentData.data.reference,
-                    payment_status: 'pending',
-                    donation_type: donationType,
-                },
-            ])
-
-        if (dbError) {
-            console.error('Database error:', dbError)
-            throw dbError
-        }
 
         return NextResponse.json(
             {

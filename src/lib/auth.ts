@@ -8,31 +8,22 @@ export interface AdminSession {
 
 export async function verifyAdmin(email: string, password: string): Promise<AdminSession | null> {
     try {
-        // Authenticate with Supabase Auth
+        // Authenticate with Supabase Auth only
         const { data: authData, error: authError } = await supabaseAdmin.auth.signInWithPassword({
             email,
             password,
         })
 
         if (authError || !authData.user) {
+            console.error('Authentication failed:', authError?.message)
             return null
         }
 
-        // Check if user is in admin_users table
-        const { data: adminData, error: adminError } = await supabaseAdmin
-            .from('admin_users')
-            .select('*')
-            .eq('id', authData.user.id)
-            .single()
-
-        if (adminError || !adminData) {
-            return null
-        }
-
+        // Return session directly from authenticated user
         return {
-            userId: adminData.id,
-            email: adminData.email,
-            role: adminData.role,
+            userId: authData.user.id,
+            email: authData.user.email || email,
+            role: 'admin', // All authenticated users get admin role
         }
     } catch (error) {
         console.error('Admin verification error:', error)
@@ -41,5 +32,5 @@ export async function verifyAdmin(email: string, password: string): Promise<Admi
 }
 
 export function isAuthenticated(session: AdminSession | null): boolean {
-    return session !== null && session.role === 'admin'
+    return session !== null
 }

@@ -3,18 +3,58 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Button from '@/components/ui/Button'
-import Card from '@/components/ui/Card'
-import WelcomeSection from '@/components/WelcomeSection'
-import ImpactSection from '@/components/ImpactSection'
-import TextCarousel from '@/components/TextCarousel'
+import AthleteShowcase from '@/components/AthleteShowcase'
 import styles from './page.module.css'
+
+// Dynamic imports for performance optimization
+const WelcomeSection = dynamic(() => import('@/components/WelcomeSection'), {
+    loading: () => <div style={{ minHeight: '400px' }} />
+})
+const ImpactSection = dynamic(() => import('@/components/ImpactSection'), {
+    loading: () => <div style={{ minHeight: '500px' }} />
+})
+const TextCarousel = dynamic(() => import('@/components/TextCarousel'), {
+    loading: () => <div style={{ minHeight: '60px' }} />
+})
+const TrioCarousel = dynamic(() => import('@/components/TrioCarousel'), {
+    loading: () => <div style={{ minHeight: '400px' }} />
+})
 
 export default function HomePage() {
     const router = useRouter()
+    const [latestNews, setLatestNews] = React.useState<any[]>([])
+
+    React.useEffect(() => {
+        const fetchLatestNews = async () => {
+            try {
+                const response = await fetch('/api/news?page=1&limit=3')
+                const data = await response.json()
+
+                if (data.news) {
+                    const formattedNews = data.news.map((item: any) => ({
+                        id: item.id,
+                        title: item.title,
+                        date: new Date(item.published_date).toLocaleDateString('en-US', {
+                            month: 'long',
+                            year: 'numeric'
+                        }),
+                        category: item.category,
+                        image: item.image_url
+                    }))
+                    setLatestNews(formattedNews)
+                }
+            } catch (error) {
+                console.error('Error fetching latest news:', error)
+            }
+        }
+
+        fetchLatestNews()
+    }, [])
 
     const trioCards = [
         {
@@ -56,10 +96,21 @@ export default function HomePage() {
                         <source src="/videos/hero.mp4" type="video/mp4" />
                     </video>
                     <div className={styles.overlay}></div>
+                    {/* Floating athlete PNG cutout */}
+                    <div className={styles.heroAthleteFloat}>
+                        <Image
+                            src="/images/athlete_4.png"
+                            alt="Landson Athlete"
+                            width={480}
+                            height={680}
+                            style={{ objectFit: 'contain', objectPosition: 'right bottom' }}
+                            priority
+                        />
+                    </div>
                     <div className={styles.content}>
                         <h1 className={styles.headline}>Talent for Education</h1>
                         <p className={styles.subheadline}>
-                            Empowering Nandi's athletes through scholarships and mentorship
+                            Empowering Kenya's athletes through scholarships and mentorship
                         </p>
                         <TextCarousel />
                         <div className={styles.ctaButtons}>
@@ -78,88 +129,37 @@ export default function HomePage() {
                 {/* Welcome Section - Our Story & Key Focus */}
                 <WelcomeSection />
 
-                {/* Visual Trio Section */}
-                <section className={styles.trioSection}>
-                    <div className={styles.trioGrid}>
-                        {trioCards.map((card, index) => (
-                            <Card
-                                key={index}
-                                title={card.title}
-                                description={card.description}
-                                label={card.label}
-                                imageSrc={card.image}
-                                imageAlt={card.title}
-                                onClick={() => router.push(card.link)}
-                                className={styles.trioCard}
-                            />
-                        ))}
-                    </div>
-                </section>
+                {/* Athlete Showcase */}
+                <AthleteShowcase />
 
                 {/* Latest News Section */}
                 <section className={styles.newsSection}>
                     <div className={styles.container}>
                         <div className={styles.sectionHeader}>
-                            <h2>Latest News</h2>
+                            <h2><span>Latest News</span></h2>
                             <p>Stay updated with our recent achievements and milestones</p>
                         </div>
                         <div className={styles.newsGrid}>
-                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
-                                <div className={styles.newsImageContainer}>
-                                    <Image
-                                        src="/images/education.jpg"
-                                        alt="Australian High Commissioner Meeting"
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                    <div className={styles.newsTag}>Partnership</div>
+                            {latestNews.map((news) => (
+                                <div key={news.id} className={styles.newsCard} onClick={() => router.push('/news')}>
+                                    <div className={styles.newsImageContainer}>
+                                        <Image
+                                            src={news.image}
+                                            alt={news.title}
+                                            fill
+                                            style={{ objectFit: 'cover' }}
+                                        />
+                                        <div className={styles.newsTag}>{news.category}</div>
+                                    </div>
+                                    <div className={styles.newsCardContent}>
+                                        <div className={styles.newsDate}>{news.date}</div>
+                                        <h3>{news.title}</h3>
+                                        <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
+                                            Read More
+                                        </Button>
+                                    </div>
                                 </div>
-                                <div className={styles.newsCardContent}>
-                                    <div className={styles.newsDate}>January 2026</div>
-                                    <h3>Founder Meets Australian High Commissioner</h3>
-                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
-                                        Read More
-                                    </Button>
-                                </div>
-                            </div>
-
-                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
-                                <div className={styles.newsImageContainer}>
-                                    <Image
-                                        src="/images/future.jpg"
-                                        alt="Foundation Facility"
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                    <div className={styles.newsTag}>Infrastructure</div>
-                                </div>
-                                <div className={styles.newsCardContent}>
-                                    <div className={styles.newsDate}>December 2025</div>
-                                    <h3>Dream Realized: Facility Construction Complete</h3>
-                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
-                                        Read More
-                                    </Button>
-                                </div>
-                            </div>
-
-                            <div className={styles.newsCard} onClick={() => router.push('/news')}>
-                                <div className={styles.newsImageContainer}>
-                                    <Image
-                                        src="/images/runner.jpg"
-                                        alt="Scholarship Recipients"
-                                        fill
-                                        style={{ objectFit: 'cover' }}
-                                    />
-                                    <div className={styles.newsTag}>Success</div>
-                                </div>
-                                <div className={styles.newsCardContent}>
-                                    <div className={styles.newsDate}>October 2025</div>
-                                    <h3>Three Athletes Secure US Scholarships</h3>
-                                    <Button size="small" onClick={(e) => { e.stopPropagation(); router.push('/news'); }}>
-                                        Read More
-                                    </Button>
-                                </div>
-                            </div>
+                            ))}
                         </div>
                         <div className={styles.viewAllNews}>
                             <Button onClick={() => router.push('/news')}>View All News</Button>
@@ -169,6 +169,15 @@ export default function HomePage() {
 
                 {/* Modern Impact Section */}
                 <ImpactSection />
+
+                {/* Visual Trio Section */}
+                <section className={styles.trioSection}>
+                    <div className={styles.sectionHeader}>
+                        <h2>Our Three Pillars</h2>
+                        <p>The foundation of everything we do</p>
+                    </div>
+                    <TrioCarousel cards={trioCards} />
+                </section>
             </main>
             <Footer />
         </>

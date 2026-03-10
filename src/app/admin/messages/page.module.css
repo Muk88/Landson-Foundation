@@ -1,0 +1,127 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-gray-900);
+}
+
+.subtitle {
+    color: var(--color-gray-500);
+    font-size: 0.95rem;
+}
+
+.controls {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.messageList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.messageCard {
+    background: white;
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    transition: all 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.messageCard.unread {
+    background: white;
+    border-left-color: var(--color-red);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.messageCard.unread h3 {
+    color: var(--color-gray-900);
+    font-weight: 700;
+}
+
+.messageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.senderInfo h3 {
+    font-size: 1.1rem;
+    color: var(--color-gray-700);
+    margin: 0 0 0.25rem 0;
+}
+
+.senderEmail {
+    color: var(--color-gray-500);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date {
+    font-size: 0.85rem;
+    color: var(--color-gray-400);
+    white-space: nowrap;
+}
+
+.messageBody {
+    color: var(--color-gray-700);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    font-size: 1rem;
+    white-space: pre-wrap;
+    /* Preserve line breaks */
+}
+
+.actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: flex-end;
+    border-top: 1px solid var(--color-gray-100);
+    padding-top: var(--spacing-md);
+}
+
+.emptyState {
+    text-align: center;
+    padding: var(--spacing-3xl);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    color: var(--color-gray-500);
+    border: 2px dashed var(--color-gray-200);
+}
+
+@media (max-width: 640px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .actions button {
+        flex: 1;
+    }
+}

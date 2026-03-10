@@ -1,53 +1,83 @@
 .layout {
     display: flex;
     min-height: 100vh;
-    background: var(--color-gray-100);
+    background-color: #f8fafc;
+    /* Light gray background for the whole admin area */
 }
 
+/* Sidebar Styling */
 .sidebar {
-    width: 260px;
-    background: var(--color-black);
-    color: var(--color-white);
-    padding: var(--spacing-lg);
+    width: 280px;
+    background-color: white;
+    border-right: 1px solid var(--color-gray-200);
+    display: flex;
+    flex-direction: column;
     position: fixed;
     height: 100vh;
-    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
 }
 
 .logo {
-    font-family: var(--font-heading);
+    padding: var(--spacing-xl);
     font-size: 1.5rem;
+    font-weight: 900;
     color: var(--color-red);
-    margin-bottom: var(--spacing-2xl);
-    text-align: center;
+    border-bottom: 1px solid var(--color-gray-100);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navWrapper {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gray-300) transparent;
+}
+
+.navWrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.navWrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.navWrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color-gray-300);
+    border-radius: 20px;
 }
 
 .nav {
+    padding: var(--spacing-lg) var(--spacing-md);
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
 }
 
 .navItem {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-gray-600);
+    text-decoration: none;
     border-radius: var(--radius-md);
-    color: var(--color-gray-300);
-    transition: all var(--transition-fast);
-    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    margin-bottom: 4px;
 }
 
 .navItem:hover {
-    background: var(--color-gray-800);
-    color: var(--color-white);
+    background-color: var(--color-gray-50);
+    color: var(--color-red);
 }
 
-.navItem.active {
-    background: var(--color-red);
-    color: var(--color-white);
+.active {
+    background-color: rgba(227, 30, 36, 0.05);
+    /* Light red tint */
+    color: var(--color-red);
+    font-weight: 600;
 }
 
 .navIcon {
@@ -56,48 +86,82 @@
 }
 
 .logoutButton {
-    margin-top: auto;
-    padding-top: var(--spacing-2xl);
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--color-gray-100);
 }
 
+/* Main Content Area */
 .main {
-    margin-left: 260px;
     flex: 1;
+    margin-left: 280px;
+    /* Offset for sidebar */
     padding: var(--spacing-2xl);
+    width: 100%;
 }
 
-.header {
-    background: var(--color-white);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--spacing-2xl);
-    box-shadow: var(--shadow-sm);
+/* Mobile Header (Hidden on Desktop) */
+.mobileHeader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: white;
+    border-bottom: 1px solid var(--color-gray-200);
+    z-index: 90;
+    align-items: center;
+    padding: 0 var(--spacing-lg);
+    justify-content: space-between;
 }
 
-.header h1 {
-    color: var(--color-red);
-    margin-bottom: 0.5rem;
+.menuButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--color-gray-700);
 }
 
-.header p {
-    color: var(--color-gray-600);
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 95;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.content {
-    background: var(--color-white);
-    padding: var(--spacing-xl);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-}
-
-@media (max-width: 768px) {
+/* Responsive Styles */
+@media (max-width: 1024px) {
     .sidebar {
-        width: 100%;
-        position: relative;
-        height: auto;
+        transform: translateX(-100%);
+        /* Hide sidebar by default */
+        box-shadow: var(--shadow-xl);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
     }
 
     .main {
         margin-left: 0;
+        padding-top: 80px;
+        /* Space for mobile header */
+        padding-left: var(--spacing-lg);
+        padding-right: var(--spacing-lg);
+    }
+
+    .mobileHeader {
+        display: flex;
+    }
+
+    .overlay.open {
+        display: block;
+        opacity: 1;
     }
 }

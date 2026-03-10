@@ -2,49 +2,42 @@
 
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import styles from './page.module.css'
 
 export default function StoriesPage() {
-    const stories = [
-        {
-            id: 1,
-            name: 'Nimrod Korir',
-            achievement: 'NCAA Division I Scholarship',
-            story: 'From the hills of Nandi to competing at the highest level of collegiate athletics in the United States. Nimrod trained at Kaptagat before departing for his scholarship, where he now excels both academically and athletically.',
-            image: '/images/runner.jpg',
-            year: '2023',
-            university: 'US University'
-        },
-        {
-            id: 2,
-            name: 'Dismas Kipchumba',
-            achievement: 'International Athletics Scholarship',
-            story: 'Identified through our scouting program, Dismas received comprehensive support including training gear, coaching, and scholarship preparation. His dedication to both education and athletics has opened doors to international opportunities.',
-            image: '/images/training.jpg',
-            year: '2023',
-            university: 'US University'
-        },
-        {
-            id: 3,
-            name: 'Vivian Chepkemei',
-            achievement: 'Academic & Athletic Excellence',
-            story: 'Vivian represents the perfect balance of athletic talent and academic ambition. Through Landson Foundation support, she trained at Kaptagat and secured a scholarship that allows her to pursue her dreams without choosing between education and athletics.',
-            image: '/images/future.jpg',
-            year: '2023',
-            university: 'US University'
-        },
-        {
-            id: 4,
-            name: 'Rising Stars Program',
-            achievement: '150+ Athletes Equipped',
-            story: 'Through partnerships with Team Landson Perth and The Running Center in Australia, we distributed 150 pairs of running shoes and training gear to primary and secondary school students in Mosoriot, removing financial barriers to participation.',
-            image: '/images/education.jpg',
-            year: '2024',
-            university: 'Community Impact'
+    const [stories, setStories] = React.useState<any[]>([])
+    const [loading, setLoading] = React.useState(true)
+
+    React.useEffect(() => {
+        const fetchStories = async () => {
+            try {
+                const response = await fetch('/api/stories')
+                const data = await response.json()
+
+                if (data.stories) {
+                    const formattedStories = data.stories.map((item: any) => ({
+                        id: item.id,
+                        name: item.name,
+                        achievement: item.title, // Maps to main headline (H4)
+                        story: item.story,
+                        image: item.image_url,
+                        year: item.year,
+                        university: item.achievement // Maps to badge
+                    }))
+                    setStories(formattedStories)
+                }
+            } catch (error) {
+                console.error('Error fetching stories:', error)
+            } finally {
+                setLoading(false)
+            }
         }
-    ]
+
+        fetchStories()
+    }, [])
 
     return (
         <>
@@ -71,7 +64,7 @@ export default function StoriesPage() {
                     <div className={styles.container}>
                         <div className={styles.storiesGrid}>
                             {stories.map((story, index) => (
-                                <div key={story.id} className={styles.storyCard} style={{ animationDelay: `${index * 0.1}s` }}>
+                                <Link href={`/stories/${story.id}`} key={story.id} className={styles.storyCard} style={{ animationDelay: `${index * 0.1}s` }}>
                                     <div className={styles.storyImage}>
                                         <Image
                                             src={story.image}
@@ -87,9 +80,15 @@ export default function StoriesPage() {
                                             <span className={styles.storyBadge}>{story.university}</span>
                                         </div>
                                         <h4>{story.achievement}</h4>
-                                        <p>{story.story}</p>
+                                        <p>{story.story.substring(0, 150)}...</p>
+                                        <div className={styles.readMore}>
+                                            Read Story
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                            </svg>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>

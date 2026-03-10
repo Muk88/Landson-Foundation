@@ -5,7 +5,7 @@ import styles from './TextCarousel.module.css'
 
 const words = ['The Talent', 'The Education', 'The Future']
 
-export default function TextCarousel() {
+const TextCarousel = React.memo(function TextCarousel() {
     const [currentIndex, setCurrentIndex] = useState(0)
 
     useEffect(() => {
@@ -29,4 +29,6 @@ export default function TextCarousel() {
             ))}
         </div>
     )
-}
+})
+
+export default TextCarousel

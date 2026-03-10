@@ -4,10 +4,13 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/ui/Button'
+import { supabase } from '@/lib/supabase'
+import { getAdminPath } from '@/lib/admin-path'
 import styles from './page.module.css'
 
 export default function AdminLoginPage() {
     const router = useRouter()
+    const adminPath = getAdminPath()
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -28,26 +31,22 @@ export default function AdminLoginPage() {
         setError('')
 
         try {
-            const response = await fetch('/api/admin/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
+            // Sign in directly with Supabase Auth
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: formData.email,
+                password: formData.password,
             })
 
-            const data = await response.json()
+            if (error) throw error
 
-            if (!response.ok) {
-                throw new Error(data.error || 'Login failed')
+            if (data.session) {
+                // Store session for layout check (optional, but keeps existing logic working)
+                localStorage.setItem('admin_session', JSON.stringify(data.session))
+                // Redirect to admin dashboard
+                router.push(adminPath)
             }
-
-            // Store session in localStorage
-            localStorage.setItem('admin_session', JSON.stringify(data.session))
-
-            // Redirect to admin dashboard
-            router.push('/admin')
         } catch (err: any) {
+            console.error('Login error:', err)
             setError(err.message || 'Invalid credentials')
         } finally {
             setLoading(false)

@@ -48,6 +48,7 @@
 .formGroup label {
     font-weight: 600;
     color: var(--color-gray-800);
+    font-size: 0.95rem;
 }
 
 .formGroup input {
@@ -73,6 +74,7 @@
     border-radius: var(--radius-md);
     text-align: center;
     margin-bottom: var(--spacing-md);
+    font-size: 0.9rem;
 }
 
 .backLink {
@@ -83,4 +85,79 @@
 .backLink a {
     color: var(--color-red);
     font-weight: 600;
+    text-decoration: none;
+}
+
+.backLink a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    .loginBox {
+        padding: var(--spacing-xl);
+        max-width: 100%;
+    }
+
+    .logo h1 {
+        font-size: 1.75rem;
+    }
+
+    .logo p {
+        font-size: 0.85rem;
+    }
+
+    .formGroup label {
+        font-size: 0.9rem;
+    }
+
+    .formGroup input {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    .loginBox {
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+    }
+
+    .logo {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .logo p {
+        font-size: 0.8rem;
+    }
+
+    .form {
+        gap: 1rem;
+    }
+
+    .formGroup input {
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+
+    .submitButton {
+        margin-top: 0.75rem;
+    }
+
+    .errorMessage {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
 }

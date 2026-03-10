@@ -65,12 +65,6 @@ export default function DonatePage() {
         setLoading(true)
         setError('')
 
-        if (!selectedType) {
-            setError('Please select a donation type')
-            setLoading(false)
-            return
-        }
-
         if (!formData.amount || parseFloat(formData.amount) <= 0) {
             setError('Please enter a valid amount')
             setLoading(false)
@@ -109,6 +103,29 @@ export default function DonatePage() {
     return (
         <>
             <Header />
+
+            {/* Loading Overlay */}
+            {loading && (
+                <div className={styles.loadingOverlay}>
+                    <div className={styles.loadingCard}>
+                        <div className={styles.loadingSpinner}>
+                            <div className={styles.spinnerRing}></div>
+                            <div className={styles.spinnerRing}></div>
+                            <div className={styles.spinnerRing}></div>
+                        </div>
+                        <h2 className={styles.loadingTitle}>Processing Your Donation</h2>
+                        <p className={styles.loadingText}>
+                            Please wait while we securely initialize your payment...
+                        </p>
+                        <div className={styles.loadingDots}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <main>
                 {/* Hero Section */}
                 <section className={styles.hero}>
@@ -131,7 +148,7 @@ export default function DonatePage() {
                 {/* Impact Visualizer */}
                 <section className={styles.section}>
                     <div className={styles.container}>
-                        <h2 className={styles.impactTitle}>Choose Your Impact</h2>
+                        <h2 className={styles.impactTitle}>Choose Your Impact (Optional)</h2>
                         <div className={styles.impactGrid}>
                             {impactOptions.map((option) => (
                                 <div

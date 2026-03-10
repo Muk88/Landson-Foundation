@@ -12,9 +12,10 @@ interface CardProps {
     className?: string
     glass?: boolean
     children?: React.ReactNode
+    forceShowOverlay?: boolean
 }
 
-export default function Card({
+const Card = React.memo(function Card({
     title,
     description,
     imageSrc,
@@ -24,10 +25,12 @@ export default function Card({
     className = '',
     glass = false,
     children,
+    forceShowOverlay = false,
 }: CardProps) {
     const cardClasses = [
         styles.card,
         glass && styles.glass,
+        forceShowOverlay && styles.forceOverlay,
         !imageSrc && styles.contentCard,
         className,
     ]
@@ -37,44 +40,34 @@ export default function Card({
     return (
         <div className={cardClasses} onClick={onClick}>
             {imageSrc ? (
-                <>
-                    {/* Title header above image */}
-                    {title && (
-                        <div className={styles.titleHeader}>
-                            <h3 className={styles.title}>{title}</h3>
+                <div className={styles.imageContainer}>
+                    {/* Red label bar at top */}
+                    {label && (
+                        <div className={styles.label}>
+                            {label}
                         </div>
                     )}
 
-                    {/* Image container */}
-                    <div className={styles.imageContainer}>
-                        <Image
-                            src={imageSrc}
-                            alt={imageAlt}
-                            fill
-                            className={styles.image}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
+                    <Image
+                        src={imageSrc}
+                        alt={imageAlt}
+                        fill
+                        className={styles.image}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
 
-                        {/* Description shown on hover at bottom */}
-                        {description && (
-                            <div className={styles.overlay}>
-                                <div className={styles.overlayContent}>
-                                    <p className={styles.description}>{description}</p>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Label at bottom corner */}
-                        {label && (
-                            <div className={styles.cardLabel}>
-                                {label}
-                            </div>
-                        )}
-                    </div>
-                </>
+                    {/* Green gradient overlay with description on hover */}
+                    {description && (
+                        <div className={styles.overlay}>
+                            <p className={styles.description}>{description}</p>
+                        </div>
+                    )}
+                </div>
             ) : (
                 children
             )}
         </div>
     )
-}
+})
+
+export default Card
