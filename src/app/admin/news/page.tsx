@@ -82,21 +82,21 @@ export default function NewsManagementPage() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <Button
                             variant={filter === 'all' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('all')}
                         >
                             All
                         </Button>
                         <Button
                             variant={filter === 'published' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('published')}
                         >
                             Published
                         </Button>
                         <Button
                             variant={filter === 'unpublished' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('unpublished')}
                         >
                             Unpublished
@@ -149,7 +149,7 @@ export default function NewsManagementPage() {
 
                                 <div className={styles.actions}>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => togglePublish(article.id, article.is_published)}
                                         title={article.is_published ? 'Unpublish' : 'Publish'}
@@ -163,7 +163,7 @@ export default function NewsManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => router.push(`/admin/news/${article.id}/edit`)}
                                         title="Edit"
@@ -174,7 +174,7 @@ export default function NewsManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => deleteNews(article.id)}
                                         title="Delete"

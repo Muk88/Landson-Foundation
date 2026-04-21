@@ -279,7 +279,7 @@ export default function NewStoryPage() {
                     </div>
 
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="large">
+                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="lg">
                             {saving ? 'Saving...' : 'Create Story'}
                         </Button>
                         <Link href="/admin/stories">

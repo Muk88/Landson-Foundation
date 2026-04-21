@@ -76,14 +76,14 @@ export default function MessagesPage() {
                 <div className={styles.controls}>
                     <Button
                         variant={filter === 'all' ? 'primary' : 'outline'}
-                        size="small"
+                        size="sm"
                         onClick={() => setFilter('all')}
                     >
                         All Messages
                     </Button>
                     <Button
                         variant={filter === 'unread' ? 'primary' : 'outline'}
-                        size="small"
+                        size="sm"
                         onClick={() => setFilter('unread')}
                     >
                         Unread Only
@@ -128,7 +128,7 @@ export default function MessagesPage() {
 
                                 <div className={styles.actions}>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => toggleRead(message.id, message.is_read)}
                                     >
@@ -142,7 +142,7 @@ export default function MessagesPage() {
                                         Mark as {message.is_read ? 'Unread' : 'Read'}
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => deleteMessage(message.id)}
                                         style={{ borderColor: '#ef4444', color: '#ef4444' }}

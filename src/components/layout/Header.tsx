@@ -4,8 +4,12 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import Button from '../ui/Button'
-import styles from './Header.module.css'
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs))
+}
 
 const navItems = [
     { label: 'Home', href: '/' },
@@ -31,17 +35,21 @@ export default function Header() {
     const pathname = usePathname() || '/'
 
     useEffect(() => {
+        let ticking = false
         const handleScroll = () => {
-            setScrolled(window.scrollY > 20)
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setScrolled(window.scrollY > 20)
+                    ticking = false
+                })
+                ticking = true
+            }
         }
 
-        window.addEventListener('scroll', handleScroll)
+        window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    // ... existing useEffect ...
-
-    // Helper to check active state
     const isActive = (href: string) => {
         if (href === '/') return pathname === '/'
         return pathname.startsWith(href)
@@ -52,36 +60,53 @@ export default function Header() {
         setActiveDropdown(null)
     }, [pathname])
 
-    // Handle mobile dropdown toggle
     const toggleDropdown = (label: string, e: React.MouseEvent) => {
         e.preventDefault()
         setActiveDropdown(activeDropdown === label ? null : label)
     }
 
     return (
-        <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-            <div className={styles.container}>
-                <Link href="/" className={styles.logo}>
-                    <Image src="/images/logo1.png" alt="Landson Foundation" width={150} height={50} priority />
+        <header className={cn(
+            'fixed top-0 left-0 right-0 z-[1020] transition-all duration-300 py-4',
+            scrolled ? 'bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm py-3' : 'bg-transparent'
+        )}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+                <Link href="/" className="relative z-[1030] flex items-center">
+                    <Image 
+                        src="/images/logo1.png" 
+                        alt="Landson Foundation" 
+                        width={140} 
+                        height={46} 
+                        className="transition-transform duration-300 hover:scale-105"
+                        priority 
+                    />
                 </Link>
 
-                <nav className={styles.nav}>
-                    <ul className={styles.navLinks}>
+                {/* Desktop Nav */}
+                <nav className="hidden lg:flex items-center">
+                    <ul className="flex items-center space-x-8">
                         {navItems.map((item) => (
-                            <li key={item.label} className={item.children ? styles.hasDropdown : ''}>
+                            <li key={item.label} className="relative group">
                                 {item.children ? (
                                     <>
-                                        <Link
-                                            href={item.href}
-                                            className={`${styles.navLink} ${isActive(item.href) ? styles.active : ''}`}
+                                        <button
+                                            className={cn(
+                                                'font-heading font-bold text-sm uppercase tracking-wider transition-colors px-4 py-2 rounded-full flex items-center gap-1 hover:bg-brand-red-soft hover:text-brand-red',
+                                                isActive(item.href) ? 'text-brand-red bg-brand-red-soft' : scrolled ? 'text-gray-900' : 'text-white',
+                                            )}
                                         >
                                             {item.label}
-                                            <span className={styles.dropdownArrow}>▼</span>
-                                        </Link>
-                                        <ul className={styles.dropdownMenu}>
+                                            <svg className={cn("w-4 h-4 transition-transform duration-300 group-hover:rotate-180", isActive(item.href) ? "text-brand-red" : scrolled ? "text-gray-500" : "text-white/70")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </button>
+                                        <ul className="absolute top-full left-0 w-56 bg-white shadow-xl rounded-xl py-3 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 border border-gray-100">
                                             {item.children.map((child) => (
                                                 <li key={child.href}>
-                                                    <Link href={child.href} className={styles.dropdownItem}>
+                                                    <Link 
+                                                        href={child.href} 
+                                                        className="block px-6 py-2 text-sm text-gray-700 hover:bg-brand-red-soft hover:text-brand-red transition-colors"
+                                                    >
                                                         {child.label}
                                                     </Link>
                                                 </li>
@@ -91,50 +116,77 @@ export default function Header() {
                                 ) : (
                                     <Link
                                         href={item.href}
-                                        prefetch={true}
-                                        className={`${styles.navLink} ${isActive(item.href) ? styles.active : ''}`}
+                                        className={cn(
+                                            'font-heading font-bold text-sm uppercase tracking-wider transition-all px-4 py-2 rounded-full relative overflow-hidden group/item',
+                                            isActive(item.href) 
+                                                ? 'text-brand-red bg-brand-red-soft' 
+                                                : scrolled 
+                                                    ? 'text-gray-900 hover:text-brand-red' 
+                                                    : 'text-white hover:text-white',
+                                        )}
                                     >
-                                        {item.label}
+                                        <span className="relative z-10">{item.label}</span>
+                                        {!isActive(item.href) && (
+                                            <span className={cn(
+                                                "absolute inset-0 transition-transform duration-300 -translate-x-full group-hover/item:translate-x-0 -z-0",
+                                                scrolled ? "bg-brand-red-soft" : "bg-white/10"
+                                            )}></span>
+                                        )}
                                     </Link>
                                 )}
                             </li>
                         ))}
                     </ul>
-                    <div className={styles.donateButton}>
-                        <Link href="/donate" prefetch={true}>
-                            <Button size="small">Donate</Button>
-                        </Link>
-                    </div>
                 </nav>
 
+                {/* Mobile Menu Button */}
                 <button
-                    className={`${styles.mobileMenuButton} ${mobileMenuOpen ? styles.open : ''
-                        }`}
+                    className={cn(
+                        'lg:hidden relative z-[1030] flex flex-col gap-1.5 p-2 transition-colors',
+                        scrolled || mobileMenuOpen ? 'text-gray-900' : 'text-white'
+                    )}
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
                 >
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span className={cn('block w-6 h-0.5 bg-current transition-all', mobileMenuOpen && 'rotate-45 translate-y-2')}></span>
+                    <span className={cn('block w-6 h-0.5 bg-current transition-all', mobileMenuOpen && 'opacity-0')}></span>
+                    <span className={cn('block w-6 h-0.5 bg-current transition-all', mobileMenuOpen && '-rotate-45 -translate-y-2')}></span>
                 </button>
             </div>
 
-            <div className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ''}`}>
-                <ul className={styles.mobileNavLinks}>
+            {/* Mobile Nav Overlay */}
+            <div className={cn(
+                'fixed inset-0 bg-white z-[1025] flex flex-col justify-center items-center transition-all duration-500',
+                mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+            )}>
+                <ul className="flex flex-col items-center space-y-8">
                     {navItems.map((item) => (
-                        <li key={item.label}>
+                        <li key={item.label} className="text-center w-full">
                             {item.children ? (
-                                <div className={styles.mobileDropdownWrapper}>
-                                    <div className={styles.mobileDropdownHeader} onClick={(e) => toggleDropdown(item.label, e)}>
-                                        <span className={`${styles.mobileNavLink} ${isActive(item.href) ? styles.active : ''}`}>
-                                            {item.label}
-                                        </span>
-                                        <span className={`${styles.mobileArrow} ${activeDropdown === item.label ? styles.rotate : ''}`}>▼</span>
-                                    </div>
-                                    <ul className={`${styles.mobileDropdownMenu} ${activeDropdown === item.label ? styles.show : ''}`}>
+                                <div className="flex flex-col items-center">
+                                    <button 
+                                        onClick={(e) => toggleDropdown(item.label, e)}
+                                        className={cn(
+                                            'font-heading font-extrabold text-3xl uppercase tracking-tighter transition-colors flex items-center',
+                                            isActive(item.href) ? 'text-brand-red' : 'text-gray-900'
+                                        )}
+                                    >
+                                        {item.label}
+                                        <svg className={cn('ml-3 w-6 h-6 transition-transform duration-300', activeDropdown === item.label && 'rotate-180')} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                    <ul className={cn(
+                                        'overflow-hidden transition-all duration-300 space-y-4 pt-4',
+                                        activeDropdown === item.label ? 'max-h-60' : 'max-h-0'
+                                    )}>
                                         {item.children.map(child => (
                                             <li key={child.href}>
-                                                <Link href={child.href} className={styles.mobileDropdownItem} onClick={() => setMobileMenuOpen(false)}>
+                                                <Link 
+                                                    href={child.href} 
+                                                    className="text-xl font-bold text-gray-600 hover:text-brand-red"
+                                                    onClick={() => setMobileMenuOpen(false)}
+                                                >
                                                     {child.label}
                                                 </Link>
                                             </li>
@@ -142,18 +194,20 @@ export default function Header() {
                                     </ul>
                                 </div>
                             ) : (
-                                <Link href={item.href} prefetch={true} className={styles.mobileNavLink}>
+                                <Link 
+                                    href={item.href} 
+                                    className={cn(
+                                        'font-heading font-extrabold text-3xl uppercase tracking-tighter transition-colors',
+                                        isActive(item.href) ? 'text-brand-red' : 'text-gray-900'
+                                    )}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
                                     {item.label}
                                 </Link>
                             )}
                         </li>
                     ))}
                 </ul>
-                <div className={styles.mobileDonateButton}>
-                    <Link href="/donate" prefetch={true}>
-                        <Button fullWidth>Donate</Button>
-                    </Link>
-                </div>
             </div>
         </header>
     )

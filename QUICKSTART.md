@@ -14,7 +14,6 @@ The website is now functional with placeholder images!
 - ✅ **Programs** - http://localhost:3000/programs
 - ✅ **Stories** - http://localhost:3000/stories
 - ✅ **Contact** - http://localhost:3000/contact
-- ✅ **Donate** - http://localhost:3000/donate
 
 ### Admin Dashboard
 - ✅ **Login** - http://localhost:3000/admin/login
@@ -30,10 +29,6 @@ You have `.env.local.example` - copy it to `.env.local` and fill in:
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-
-# Paystack (Required for donations)
-NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_xxx
-PAYSTACK_SECRET_KEY=sk_test_xxx
 
 # Site URL
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
@@ -72,7 +67,6 @@ Once Supabase is set up:
 
 2. **Configure .env.local** (2 minutes)
    - Add Supabase keys
-   - Add Paystack test keys
 
 3. **Test Admin Dashboard**
    - Login at /admin/login
@@ -118,9 +112,6 @@ npm run lint
 
 **Issue**: Can't login to admin
 **Solution**: Ensure admin user is added to `admin_users` table in Supabase
-
-**Issue**: Donation page doesn't work
-**Solution**: Add Paystack API keys to `.env.local`
 
 **Issue**: Images not loading
 **Solution**: Make sure images are in `public/images/` directory

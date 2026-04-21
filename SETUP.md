@@ -39,14 +39,6 @@ I've created `.env.local` with placeholder values. The errors should stop after 
      VALUES ('paste-uuid-here', 'your-email@example.com', 'admin');
      ```
 
-### Paystack Setup (2 minutes)
-
-1. **Create Account**: Go to https://paystack.com
-2. **Get Test Keys**:
-   - Go to Settings → API Keys & Webhooks
-   - Copy `Test Public Key` → Replace `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`
-   - Copy `Test Secret Key` → Replace `PAYSTACK_SECRET_KEY`
-
 ## 🎯 Step 3: Test Everything
 
 After updating `.env.local` and restarting the server:
@@ -58,9 +50,6 @@ After updating `.env.local` and restarting the server:
    - Login with your Supabase user credentials
    - Add a test success story
    - Update impact metrics
-   
-3. **Donate Page**: http://localhost:3000/donate
-   - Try a test donation (use Paystack test cards)
 
 ## 📹 Optional: Add Hero Video
 
@@ -82,4 +71,4 @@ The website will be **fully functional**! 🎉
 
 ---
 
-**Current Status**: Website is running with placeholder data. Just needs real Supabase/Paystack credentials to be production-ready.
+**Current Status**: Website is running with placeholder data. Just needs real Supabase credentials to be production-ready.

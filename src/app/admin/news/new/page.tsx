@@ -332,7 +332,7 @@ export default function NewNewsPage() {
                     </div>
 
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-                        <Button type="submit" loading={saving || uploading} size="large">
+                        <Button type="submit" loading={saving || uploading} size="lg">
                             {saving ? 'Saving...' : 'Create Article'}
                         </Button>
                         <Link href="/admin/news">

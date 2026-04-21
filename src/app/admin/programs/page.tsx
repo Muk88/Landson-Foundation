@@ -110,21 +110,21 @@ export default function ProgramsManagementPage() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <Button
                             variant={filter === 'all' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('all')}
                         >
                             All
                         </Button>
                         <Button
                             variant={filter === 'active' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('active')}
                         >
                             Active
                         </Button>
                         <Button
                             variant={filter === 'inactive' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('inactive')}
                         >
                             Inactive
@@ -197,7 +197,7 @@ export default function ProgramsManagementPage() {
 
                                 <div className={styles.actions}>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => toggleActive(program.id, program.is_active)}
                                         title={program.is_active ? 'Deactivate' : 'Activate'}
@@ -211,7 +211,7 @@ export default function ProgramsManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => router.push(`/admin/programs/${program.id}/edit`)}
                                         title="Edit"
@@ -222,7 +222,7 @@ export default function ProgramsManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => deleteProgram(program.id)}
                                         title="Delete"

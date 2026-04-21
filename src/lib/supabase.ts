@@ -61,17 +61,6 @@ export interface ContactMessage {
     created_at: string
 }
 
-export interface Donation {
-    id: string
-    amount: number
-    donor_name?: string
-    donor_email?: string
-    payment_reference: string
-    payment_status: string
-    donation_type: string
-    created_at: string
-}
-
 export interface AdminUser {
     id: string
     email: string

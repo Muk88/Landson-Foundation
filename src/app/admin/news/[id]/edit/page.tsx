@@ -368,7 +368,7 @@ export default function EditNewsPage({ params }: { params: { id: string } }) {
                     </div>
 
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-                        <Button type="submit" loading={saving || uploading} size="large">
+                        <Button type="submit" loading={saving || uploading} size="lg">
                             {saving ? 'Saving...' : 'Update Article'}
                         </Button>
                         <Link href="/admin/news">

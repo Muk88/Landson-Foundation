@@ -313,7 +313,7 @@ export default function EditStoryPage({ params }: { params: { id: string } }) {
                     </div>
 
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="large">
+                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="lg">
                             {saving ? 'Saving...' : 'Update Story'}
                         </Button>
                         <Link href="/admin/stories">

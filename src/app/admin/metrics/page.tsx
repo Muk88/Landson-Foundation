@@ -162,7 +162,7 @@ export default function MetricsPage() {
                         />
                     </div>
 
-                    <Button type="submit" loading={saving} size="large">
+                    <Button type="submit" loading={saving} size="lg">
                         Save Metrics
                     </Button>
                 </form>

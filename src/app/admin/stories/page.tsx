@@ -82,21 +82,21 @@ export default function StoriesManagementPage() {
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <Button
                             variant={filter === 'all' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('all')}
                         >
                             All
                         </Button>
                         <Button
                             variant={filter === 'featured' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('featured')}
                         >
                             Featured
                         </Button>
                         <Button
                             variant={filter === 'regular' ? 'primary' : 'outline'}
-                            size="small"
+                            size="sm"
                             onClick={() => setFilter('regular')}
                         >
                             Regular
@@ -150,7 +150,7 @@ export default function StoriesManagementPage() {
 
                                 <div className={styles.actions}>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => toggleFeatured(story.id, story.is_featured)}
                                         title={story.is_featured ? 'Unfeature' : 'Feature'}
@@ -160,7 +160,7 @@ export default function StoriesManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => router.push(`/admin/stories/${story.id}/edit`)}
                                         title="Edit"
@@ -171,7 +171,7 @@ export default function StoriesManagementPage() {
                                         </svg>
                                     </Button>
                                     <Button
-                                        size="small"
+                                        size="sm"
                                         variant="outline"
                                         onClick={() => deleteStory(story.id)}
                                         title="Delete"

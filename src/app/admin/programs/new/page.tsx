@@ -294,7 +294,7 @@ export default function NewProgramPage() {
                     </div>
 
                     <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
-                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="large">
+                        <Button type="submit" loading={saving || uploading || uploadingAdditional} size="lg">
                             {saving ? 'Saving...' : 'Create Program'}
                         </Button>
                         <Link href="/admin/programs">
