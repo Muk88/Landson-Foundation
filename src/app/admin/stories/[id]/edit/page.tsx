@@ -153,7 +153,7 @@ export default function EditStoryPage({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="p-8 max-w-4xl mx-auto w-full">
+        <div className="p-4 md:p-8 max-w-4xl mx-auto w-full">
             <div className="mb-8 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-heading font-black text-gray-900 tracking-tight">Edit Success Story</h1>
