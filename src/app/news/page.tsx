@@ -89,7 +89,7 @@ export default async function NewsPage() {
                                             alt={item.title}
                                             fill
                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
+                                            className="object-cover object-top transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
                                         />
                                         <div className="absolute top-6 left-6">
                                             <span className="px-4 py-2 bg-brand-red text-white font-black text-[10px] uppercase tracking-widest rounded-lg shadow-lg">

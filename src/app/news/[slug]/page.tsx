@@ -42,7 +42,7 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
                         src={newsItem.image_url || '/images/background2.jpg'}
                         alt={newsItem.title}
                         fill
-                        className="object-cover opacity-50 contrast-[1.1] saturate-[1.1]"
+                        className="object-cover object-top opacity-50 contrast-[1.1] saturate-[1.1]"
                         priority
                         sizes="100vw"
                     />
@@ -107,7 +107,7 @@ export default async function NewsDetailPage({ params }: { params: { slug: strin
                                                     src={img}
                                                     alt={`${newsItem.title} gallery ${index + 1}`}
                                                     fill
-                                                    className="object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
+                                                    className="object-cover object-top transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
                                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 />
                                                 <div className="absolute inset-0 bg-brand-green/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>

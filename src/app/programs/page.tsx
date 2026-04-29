@@ -114,7 +114,7 @@ export default async function ProgramsPage() {
                                             src={program.image}
                                             alt={program.title}
                                             fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
+                                            className="object-cover object-top transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
                                             sizes="(max-width: 768px) 100vw, 33vw"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-brand-green/90 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>

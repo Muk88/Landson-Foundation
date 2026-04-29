@@ -103,23 +103,20 @@ export default async function HomePage() {
                     <div className="absolute inset-0 bg-gradient-to-b from-brand-green/70 via-brand-green/20 to-brand-green/90 z-10"></div>
                     
                     {/* Floating Hero Athlete */}
-                    <div className="absolute bottom-0 right-0 z-20 pointer-events-none hidden lg:block overflow-hidden h-[90vh]">
-                        {/* <Image
-                            src="/images/athlete_4.png"
-                            alt="Landson Athlete"
-                            width={400}
-                            height={600}
-                            className="object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform duration-[10s] hover:scale-105 contrast-[1.05]"
+                    <div className="absolute bottom-0 right-0 z-20 pointer-events-none hidden lg:flex items-end h-[95vh] pr-8 xl:pr-16">
+                        <Image
+                            src="/images/kipchoge-cutout.png"
+                            alt="Kenyan Champion Athlete"
+                            width={480}
+                            height={720}
+                            className="object-contain object-bottom drop-shadow-[0_20px_60px_rgba(0,0,0,0.6)] animate-fade-in-up [animation-delay:800ms] transition-transform duration-[8s] hover:scale-105"
                             priority
-                        /> */}
+                        />
                     </div>
 
-                    <div className="relative z-30 container-custom text-center lg:text-left lg:grid lg:grid-cols-2">
+                    <div className="relative z-30 container-custom text-center lg:text-left">
                         <div className="max-w-3xl space-y-10">
                             <div className="space-y-4">
-                                <span className="inline-block px-6 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-sm uppercase tracking-[0.3em] rounded-full animate-fade-in-up drop-shadow-md">
-                                    Nandi County, Kenya
-                                </span>
                                 <h1 className="text-6xl md:text-8xl lg:text-9xl font-heading font-black text-white leading-[0.9] tracking-tighter drop-shadow-2xl animate-fade-in-up [animation-delay:200ms]">
                                     Talent <br />
                                     <span className="text-brand-red">for</span> <br />
@@ -157,6 +154,34 @@ export default async function HomePage() {
                 <AthleteShowcase />
                 <NewsSection latestNews={latestNews} />
                 <ImpactSection />
+
+                {/* YouTube Channel Strip */}
+                <section className="bg-gray-950 border-y border-white/5">
+                    <div className="container-custom py-12 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="flex items-center gap-6">
+                            <div className="w-14 h-14 bg-brand-red rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-brand-red/30">
+                                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="white">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p className="text-white font-heading font-black text-xl tracking-tight">Landson Foundation on YouTube</p>
+                                <p className="text-gray-400 font-medium text-sm mt-0.5">Stories, highlights &amp; events — straight from Nandi County</p>
+                            </div>
+                        </div>
+                        <a
+                            href="https://www.youtube.com/@LandsonFoundation"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-red hover:bg-red-700 text-white font-black uppercase tracking-widest text-sm rounded-full shadow-xl shadow-brand-red/20 transition-all duration-300 hover:-translate-y-0.5 flex-shrink-0"
+                        >
+                            <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                            </svg>
+                            Visit Channel
+                        </a>
+                    </div>
+                </section>
 
                 {/* Pillars Section */}
                 <section className="bg-gray-100 py-16 md:py-24 overflow-hidden">

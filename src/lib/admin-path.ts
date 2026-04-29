@@ -5,8 +5,12 @@
 
 // Generate a consistent hash from the secret
 export function getAdminPath(): string {
-    // Custom multi-level admin path
-    return '/koech/land'
+    // Read from environment variable to avoid hardcoding in source
+    // Fallback to a secure default if not set
+    const path = process.env.NEXT_PUBLIC_ADMIN_PATH || '/koech-secure-portal'
+    
+    // Ensure it starts with a slash
+    return path.startsWith('/') ? path : `/${path}`
 }
 
 // Validate if a path is the correct admin path

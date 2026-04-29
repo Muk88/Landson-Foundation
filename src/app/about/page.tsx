@@ -5,6 +5,11 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import Button from '@/components/ui/Button'
 
+// ─── YouTube Configuration ────────────────────────────────────────────────────
+const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@LandsonFoundation'
+const YOUTUBE_FEATURED_VIDEO = 'https://www.youtube.com/embed/YDRpCPtXuFA'
+// ──────────────────────────────────────────────────────────────────────────────
+
 export default function AboutPage() {
     return (
         <div className="flex flex-col min-h-screen">
@@ -64,7 +69,7 @@ export default function AboutPage() {
                                         src="/images/athletes 1.jpg"
                                         alt="Young Athletes"
                                         fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
+                                        className="object-cover object-top transition-transform duration-700 group-hover:scale-110 contrast-[1.05]"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>
@@ -72,6 +77,65 @@ export default function AboutPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* ── YouTube Feature Section ── */}
+                <section className="relative bg-brand-green overflow-hidden">
+                    {/* White radial dot pattern — matches ImpactSection */}
+                    <div className="absolute inset-0 opacity-10 pointer-events-none">
+                        <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:40px_40px]"></div>
+                    </div>
+
+                    <div className="container-custom relative z-10 py-16 md:py-20">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+                            {/* Left — Text */}
+                            <div className="space-y-6">
+                                <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full text-white font-bold text-xs uppercase tracking-widest">
+                                    <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                    Watch on YouTube
+                                </span>
+                                <h2 className="text-3xl md:text-4xl font-heading font-black text-white leading-tight tracking-tight">
+                                    See the Mission <span className="text-brand-red underline decoration-white/20 underline-offset-8">in Action</span>
+                                </h2>
+                                <p className="text-white/80 font-medium leading-relaxed text-base max-w-sm">
+                                    Go behind the scenes of Landson Foundation — witness the training, the stories, and the lives we are changing in Nandi County.
+                                </p>
+                                <a
+                                    href={YOUTUBE_CHANNEL_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2.5 px-6 py-3 bg-brand-red hover:bg-red-700 text-white font-black uppercase tracking-widest text-xs rounded-full shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5"
+                                >
+                                    <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                    Subscribe to Our Channel
+                                </a>
+                            </div>
+
+                            {/* Right — Video */}
+                            <div className="relative">
+                                <div className="absolute -inset-[1px] bg-gradient-to-br from-white/20 via-transparent to-brand-red/40 rounded-2xl"></div>
+                                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                                    <div className="aspect-video bg-black">
+                                        <iframe
+                                            src={YOUTUBE_FEATURED_VIDEO + '?rel=0&modestbranding=1'}
+                                            title="Landson Foundation — Our Story"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
+                                            className="w-full h-full"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
 
                 {/* Founder's Journey */}
                 <section id="founder-journey" className="py-16 md:py-24 bg-gray-50 overflow-hidden">
@@ -83,7 +147,7 @@ export default function AboutPage() {
                                         src="/images/founder.jpg"
                                         alt="Founder Alfred"
                                         fill
-                                        className="object-cover contrast-[1.1]"
+                                        className="object-cover object-top contrast-[1.1]"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     />
                                 </div>

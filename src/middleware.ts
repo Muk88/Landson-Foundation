@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 
-// Define the encrypted admin path
+// Define the encrypted admin path dynamically
 function getAdminPath(): string {
-    // Custom multi-level admin path for better security
-    return '/koech/land'
+    const path = process.env.NEXT_PUBLIC_ADMIN_PATH || '/koech-secure-portal'
+    return path.startsWith('/') ? path : `/${path}`
 }
 
 export async function middleware(request: NextRequest) {
@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
         console.log(`[Middleware] Admin path access: ${pathname}`)
 
         // Rewrite the URL to /admin internally
-        // Example: /koech/land/login -> /admin/login
+        // Example: /landson-secure-admin-2026-942462484/login -> /admin/login
         const internalPath = pathname.replace(adminPath, '/admin')
         console.log(`[Middleware] Rewriting to: ${internalPath}`)
 
@@ -99,8 +99,13 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/admin/:path*',
-        '/koech/land/:path*',
-        '/koech/land',
+        /*
+         * Match all request paths except for the ones starting with:
+         * - api (API routes)
+         * - _next/static (static files)
+         * - _next/image (image optimization files)
+         * - favicon.ico (favicon file)
+         */
+        '/((?!api|_next/static|_next/image|favicon.ico|images|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 }

@@ -9,6 +9,8 @@ import { Icon } from '@/lib/icons'
 // Enable ISR
 export const revalidate = 3600
 
+// Exact schema: id, name, title, story, achievement, image_url, year,
+//               is_featured, youtube_url, images (jsonb), created_at, updated_at
 async function getStories() {
     const supabase = createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -17,8 +19,8 @@ async function getStories() {
 
     const { data: stories, error } = await supabase
         .from('success_stories')
-        .select('*')
-        .eq('published', true)
+        .select('id, name, title, story, achievement, image_url, year, is_featured, youtube_url, images, created_at')
+        .order('is_featured', { ascending: false })
         .order('created_at', { ascending: false })
 
     if (error) {
@@ -28,12 +30,13 @@ async function getStories() {
 
     return stories.map((item: any) => ({
         id: item.id,
-        name: item.name || item.athlete_name,
-        achievement: item.title || item.achievement,
-        story: item.story || item.story_content,
-        image: item.image_url,
-        year: item.year || new Date(item.created_at).getFullYear(),
-        university: item.achievement
+        name: item.name,              // Main card headline: "A Dream That Became A Reality"
+        title: item.title,            // Subtitle: "Completion Of Landson Foundation Building"
+        story: item.story,            // Full story text preview
+        badge: item.achievement,      // Red badge tag: "Structures"
+        image: item.image_url,        // Main image URL
+        year: item.year ?? new Date(item.created_at).getFullYear(),
+        is_featured: item.is_featured,
     }))
 }
 
@@ -84,30 +87,35 @@ export default async function StoriesPage() {
                                             src={story.image}
                                             alt={story.name}
                                             fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-brand-green/80 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
-                                        
+
+                                        {/* Year badge — top right */}
                                         <div className="absolute top-8 right-8">
                                             <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full font-bold text-xs">
-                                                Class of {story.year}
+                                                {story.year}
                                             </div>
                                         </div>
 
+                                        {/* Name + achievement badge — bottom overlay */}
                                         <div className="absolute bottom-8 left-8 right-8">
-                                            <h3 className="text-3xl font-heading font-black text-white leading-tight mb-2 uppercase tracking-tighter">
+                                            <h3 className="text-2xl font-heading font-black text-white leading-tight mb-3 tracking-tighter">
                                                 {story.name}
                                             </h3>
-                                            <span className="inline-block px-3 py-1 bg-brand-red text-white text-[10px] font-black uppercase tracking-widest rounded-lg">
-                                                {story.university}
-                                            </span>
+                                            {story.badge && (
+                                                <span className="inline-block px-3 py-1 bg-brand-red text-white text-[10px] font-black uppercase tracking-widest rounded-lg">
+                                                    {story.badge}
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
-                                    
+
+                                    {/* Card body — title + story excerpt */}
                                     <div className="space-y-4 px-2">
-                                        <h4 className="text-xl font-heading font-black text-gray-900 group-hover:text-brand-red transition-colors line-clamp-1">
-                                            {story.achievement}
+                                        <h4 className="text-xl font-heading font-black text-gray-900 group-hover:text-brand-red transition-colors line-clamp-2">
+                                            {story.title}
                                         </h4>
                                         <p className="text-gray-600 leading-relaxed font-medium line-clamp-3">
                                             {story.story}
