@@ -27,8 +27,6 @@ const nextConfig = {
     experimental: {
         optimizePackageImports: ['@supabase/supabase-js'],
     },
-    // Enable standalone output for cPanel/Node.js hosting
-    output: 'standalone',
 }
 
 module.exports = nextConfig
