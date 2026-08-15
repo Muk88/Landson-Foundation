@@ -2,10 +2,9 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 import { createClient } from '@supabase/supabase-js'
 import { Icon } from '@/lib/icons'
+import HeroSpacer from '@/components/ui/HeroSpacer'
 
 // Helper to extract video ID
 function getYouTubeId(url: string) {
@@ -34,9 +33,8 @@ export default async function StoryDetailPage({ params }: { params: { id: string
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">
+        <div className="flex flex-col min-h-screen bg-white"><main className="flex-grow pt-[72px] bg-white">
+                <HeroSpacer />
                 {/* Hero Section */}
                 <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-green">
                     <Image
@@ -187,8 +185,6 @@ export default async function StoryDetailPage({ params }: { params: { id: string
                         </Link>
                     </div>
                 </section>
-            </main>
-            <Footer />
-        </div>
+            </main></div>
     )
 }

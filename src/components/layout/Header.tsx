@@ -18,7 +18,7 @@ const navItems = [
         href: '/about',
         children: [
             { label: 'Our Story', href: '/about#our-story' },
-            { label: 'Founder\'s Journey', href: '/about#founder-journey' },
+            { label: "Founder's Journey", href: '/about#founder-journey' },
             { label: 'Core Values', href: '/about#core-values' },
         ]
     },
@@ -45,7 +45,6 @@ export default function Header() {
                 ticking = true
             }
         }
-
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
@@ -60,52 +59,65 @@ export default function Header() {
         setActiveDropdown(null)
     }, [pathname])
 
+    // Close mobile menu on scroll
+    useEffect(() => {
+        if (!mobileMenuOpen) return
+        const handleScrollClose = () => {
+            if (window.scrollY > 50) {
+                setMobileMenuOpen(false)
+                setActiveDropdown(null)
+            }
+        }
+        window.addEventListener('scroll', handleScrollClose, { passive: true })
+        return () => window.removeEventListener('scroll', handleScrollClose)
+    }, [mobileMenuOpen])
+
     const toggleDropdown = (label: string, e: React.MouseEvent) => {
         e.preventDefault()
         setActiveDropdown(activeDropdown === label ? null : label)
     }
 
     return (
-        <header className={cn(
-            'fixed top-0 left-0 right-0 z-[1020] transition-all duration-300 py-4',
-            scrolled ? 'bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm py-3' : 'bg-transparent'
-        )}>
+        <header className="fixed top-0 left-0 right-0 z-[1020] bg-white border-b border-gray-100 shadow-sm py-3">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
                 <Link href="/" className="relative z-[1030] flex items-center">
-                    <Image 
-                        src="/images/logo1.png" 
-                        alt="Landson Foundation" 
-                        width={140} 
-                        height={46} 
+                    <Image
+                        src="/images/logo1.png"
+                        alt="Landson Foundation"
+                        width={140}
+                        height={46}
                         className="transition-transform duration-300 hover:scale-105"
-                        priority 
+                        priority
                     />
                 </Link>
 
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center">
-                    <ul className="flex items-center space-x-8">
+                    <ul className="flex items-center space-x-2">
                         {navItems.map((item) => (
                             <li key={item.label} className="relative group">
                                 {item.children ? (
                                     <>
-                                        <button
+                                        <Link
+                                            href={item.href}
                                             className={cn(
-                                                'font-heading font-bold text-sm uppercase tracking-wider transition-colors px-4 py-2 rounded-full flex items-center gap-1 hover:bg-brand-red-soft hover:text-brand-red',
-                                                isActive(item.href) ? 'text-brand-red bg-brand-red-soft' : scrolled ? 'text-gray-900' : 'text-white',
+                                                'font-bold text-[11px] uppercase tracking-[0.18em] transition-colors px-4 py-2 rounded-full flex items-center gap-1 hover:bg-brand-red-soft hover:text-brand-red',
+                                                isActive(item.href) ? 'text-brand-red bg-brand-red-soft' : 'text-gray-900',
                                             )}
+                                            style={{ fontFamily: '"Montreal Sans", sans-serif' }}
                                         >
                                             {item.label}
-                                            <svg className={cn("w-4 h-4 transition-transform duration-300 group-hover:rotate-180", isActive(item.href) ? "text-brand-red" : scrolled ? "text-gray-500" : "text-white/70")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg className={cn("w-3.5 h-3.5 transition-transform duration-300 group-hover:rotate-180", isActive(item.href) ? "text-brand-red" : "text-gray-500")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                             </svg>
-                                        </button>
+                                        </Link>
                                         <ul className="absolute top-full left-0 w-56 bg-white shadow-xl rounded-xl py-3 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 border border-gray-100">
                                             {item.children.map((child) => (
                                                 <li key={child.href}>
-                                                    <Link 
-                                                        href={child.href} 
-                                                        className="block px-6 py-2 text-sm text-gray-700 hover:bg-brand-red-soft hover:text-brand-red transition-colors"
+                                                    <Link
+                                                        href={child.href}
+                                                        className="block px-6 py-2.5 text-sm font-semibold text-gray-600 hover:bg-brand-red-soft hover:text-brand-red transition-colors"
+                                                        style={{ fontFamily: '"Montreal Sans", sans-serif' }}
                                                     >
                                                         {child.label}
                                                     </Link>
@@ -117,13 +129,12 @@ export default function Header() {
                                     <Link
                                         href={item.href}
                                         className={cn(
-                                            'font-heading font-bold text-sm uppercase tracking-wider transition-all duration-200 px-4 py-2 rounded-full',
+                                            'font-bold text-[11px] uppercase tracking-[0.18em] transition-all duration-200 px-4 py-2 rounded-full',
                                             isActive(item.href)
                                                 ? 'text-brand-red bg-brand-red-soft'
-                                                : scrolled
-                                                    ? 'text-gray-900 hover:text-brand-red hover:bg-brand-red-soft'
-                                                    : 'text-white hover:bg-white/15',
+                                                : 'text-gray-900 hover:text-brand-red hover:bg-brand-red-soft',
                                         )}
+                                        style={{ fontFamily: '"Montreal Sans", sans-serif' }}
                                     >
                                         {item.label}
                                     </Link>
@@ -135,10 +146,7 @@ export default function Header() {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className={cn(
-                        'lg:hidden relative z-[1030] flex flex-col gap-1.5 p-2 transition-colors',
-                        (scrolled && !mobileMenuOpen) ? 'text-gray-900' : 'text-white'
-                    )}
+                    className="lg:hidden relative z-[1030] flex flex-col gap-1.5 p-2 text-gray-900"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
                 >
@@ -157,15 +165,15 @@ export default function Header() {
                 <div className="absolute inset-0 opacity-10 pointer-events-none">
                     <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:40px_40px]"></div>
                 </div>
-                
+
                 {/* Gradient glow accent */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/20 rounded-full blur-[100px] pointer-events-none"></div>
 
                 <div className="flex-1 flex flex-col justify-center px-8 relative z-10 pt-20">
                     <ul className="flex flex-col space-y-6">
                         {navItems.map((item, idx) => (
-                            <li 
-                                key={item.label} 
+                            <li
+                                key={item.label}
                                 className="w-full"
                                 style={{
                                     transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(20px)',
@@ -175,27 +183,38 @@ export default function Header() {
                             >
                                 {item.children ? (
                                     <div className="flex flex-col">
-                                        <button 
-                                            onClick={(e) => toggleDropdown(item.label, e)}
-                                            className={cn(
-                                                'font-heading font-black text-xl uppercase tracking-tighter transition-colors flex items-center justify-between w-full',
-                                                isActive(item.href) ? 'text-brand-red' : 'text-white hover:text-brand-red/80'
-                                            )}
-                                        >
-                                            {item.label}
-                                            <svg className={cn('w-5 h-5 transition-transform duration-300', activeDropdown === item.label && 'rotate-180')} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                            </svg>
-                                        </button>
+                                        <div className="flex items-center justify-between w-full">
+                                            <Link
+                                                href={item.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className={cn(
+                                                    'font-black text-xl uppercase tracking-[0.08em] transition-colors',
+                                                    isActive(item.href) ? 'text-brand-red' : 'text-white hover:text-brand-red/80'
+                                                )}
+                                                style={{ fontFamily: '"Montreal Sans", sans-serif' }}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                            <button
+                                                onClick={(e) => toggleDropdown(item.label, e)}
+                                                className="p-2 text-white hover:text-brand-red transition-colors"
+                                                aria-label="Toggle dropdown"
+                                            >
+                                                <svg className={cn('w-6 h-6 transition-transform duration-300', activeDropdown === item.label && 'rotate-180')} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <ul className={cn(
                                             'overflow-hidden transition-all duration-300 space-y-3 border-l-2 border-white/10',
                                             activeDropdown === item.label ? 'max-h-60 opacity-100 mt-3 pl-4' : 'max-h-0 opacity-0 pl-4'
                                         )}>
                                             {item.children.map(child => (
                                                 <li key={child.href}>
-                                                    <Link 
-                                                        href={child.href} 
-                                                        className="text-base font-bold text-white/70 hover:text-brand-red block py-1 transition-colors"
+                                                    <Link
+                                                        href={child.href}
+                                                        className="text-base font-semibold text-white/70 hover:text-brand-red block py-1 transition-colors"
+                                                        style={{ fontFamily: '"Montreal Sans", sans-serif' }}
                                                         onClick={() => setMobileMenuOpen(false)}
                                                     >
                                                         {child.label}
@@ -205,12 +224,13 @@ export default function Header() {
                                         </ul>
                                     </div>
                                 ) : (
-                                    <Link 
-                                        href={item.href} 
+                                    <Link
+                                        href={item.href}
                                         className={cn(
-                                            'block font-heading font-black text-xl uppercase tracking-tighter transition-colors',
+                                            'block font-black text-xl uppercase tracking-[0.08em] transition-colors',
                                             isActive(item.href) ? 'text-brand-red' : 'text-white hover:text-brand-red'
                                         )}
+                                        style={{ fontFamily: '"Montreal Sans", sans-serif' }}
                                         onClick={() => setMobileMenuOpen(false)}
                                     >
                                         {item.label}
@@ -222,7 +242,7 @@ export default function Header() {
                 </div>
 
                 {/* Bottom Quick Actions */}
-                <div 
+                <div
                     className="p-8 relative z-10 border-t border-white/10 mt-auto"
                     style={{
                         transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
@@ -230,7 +250,7 @@ export default function Header() {
                         transition: `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.4s`
                     }}
                 >
-                    <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <p className="font-display text-white/40 text-[10px] font-bold uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
                         <span className="w-4 h-px bg-brand-red inline-block"></span>
                         Connect with us
                     </p>
@@ -240,7 +260,7 @@ export default function Header() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </a>
-                        <Link href="/donate" className="flex-1 h-12 flex items-center justify-center bg-brand-red text-white font-black text-sm uppercase tracking-widest rounded-full hover:bg-red-700 transition-colors shadow-lg shadow-black/20" onClick={() => setMobileMenuOpen(false)}>
+                        <Link href="/contact" className="flex-1 h-12 flex items-center justify-center bg-brand-red text-white font-display font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-red-700 transition-colors shadow-lg shadow-black/20" onClick={() => setMobileMenuOpen(false)}>
                             Support the Mission
                         </Link>
                     </div>

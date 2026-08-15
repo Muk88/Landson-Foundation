@@ -1,7 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import Header from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer'
 
 export const metadata = {
     title: 'Terms of Service | Landson Foundation',
@@ -109,9 +107,7 @@ const sections = [
 
 export default function TermsPage() {
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">
+        <div className="flex flex-col min-h-screen"><main className="flex-grow">
                 {/* Hero */}
                 <section className="relative bg-gray-950 overflow-hidden pt-32 pb-20">
                     <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
@@ -179,8 +175,6 @@ export default function TermsPage() {
                         </div>
                     </div>
                 </section>
-            </main>
-            <Footer />
-        </div>
+            </main></div>
     )
 }

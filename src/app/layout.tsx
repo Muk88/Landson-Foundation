@@ -1,17 +1,31 @@
 import type { Metadata } from 'next'
-import { Inter, Montserrat } from 'next/font/google'
+import { Barlow_Condensed, Barlow_Semi_Condensed, Lato } from 'next/font/google'
 import Script from 'next/script'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import './globals.css'
 
-const inter = Inter({
+// ─── Display Font: hero titles, giant stat numbers ──────────────────────────
+const barlowCondensed = Barlow_Condensed({
     subsets: ['latin'],
-    variable: '--font-body',
+    variable: '--font-display',
+    weight: ['600', '700', '800', '900'],
     display: 'swap',
 })
 
-const montserrat = Montserrat({
+// ─── Heading Font: all section h1–h4 ────────────────────────────────────────
+const barlowSemiCondensed = Barlow_Semi_Condensed({
     subsets: ['latin'],
     variable: '--font-heading',
+    weight: ['400', '500', '600', '700', '800'],
+    display: 'swap',
+})
+
+// ─── Body Font: prose, descriptions, UI text ────────────────────────────────
+const lato = Lato({
+    subsets: ['latin'],
+    variable: '--font-body',
+    weight: ['300', '400', '700', '900'],
     display: 'swap',
 })
 
@@ -33,12 +47,16 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className={`${inter.variable} ${montserrat.variable}`}>
+        <html lang="en" className={`${barlowCondensed.variable} ${barlowSemiCondensed.variable} ${lato.variable}`}>
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </head>
-            <body>{children}</body>
+            <body>
+                <Header />
+                {children}
+                <Footer />
+            </body>
         </html>
     )
 }
