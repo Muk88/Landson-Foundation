@@ -49,8 +49,7 @@ export default async function NewsPage() {
         <div className="flex flex-col min-h-screen bg-white"><main className="flex-grow pt-[72px] bg-white">
                 <HeroSpacer />
                 {/* Hero Section */}
-                {/* ── Hero ── */}
-                <section className="relative min-h-[60vh] lg:h-[60vh] py-16 lg:py-0 flex items-center overflow-hidden bg-brand-green">
+                <section className="relative min-h-[60vh] lg:min-h-[60vh] py-16 lg:py-24 flex items-center overflow-hidden bg-brand-green">
                     <Image
                         src="/images/background2.jpg"
                         alt="News & Updates"

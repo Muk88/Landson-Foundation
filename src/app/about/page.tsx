@@ -18,8 +18,7 @@ export default function AboutPage() {
         <div className="flex flex-col min-h-screen bg-white"><main className="flex-grow pt-[72px] bg-white">
                 <HeroSpacer />
 
-                {/* ── Hero ── */}
-                <section className="relative min-h-[60vh] lg:h-[60vh] py-16 lg:py-0 flex items-center overflow-hidden bg-brand-green">
+                <section className="relative min-h-[60vh] lg:min-h-[60vh] py-16 lg:py-24 flex items-center overflow-hidden bg-brand-green">
                     <Image
                         src="/images/nandi-landscape.jpg"
                         alt="Nandi County Landscape"
@@ -42,7 +41,7 @@ export default function AboutPage() {
                             </div>
 
                             {/* Headline */}
-                            <h1 className="font-display font-black text-white text-[clamp(3.5rem,8vw,7rem)] leading-[1.05] tracking-tight drop-shadow-2xl animate-fade-in-up [animation-delay:200ms]">
+                            <h1 className="font-display font-black text-white text-[clamp(3.5rem,8vw,7rem)] leading-[0.85] tracking-tight drop-shadow-2xl animate-fade-in-up [animation-delay:200ms]">
                                 The <span className="text-brand-red">Landson</span> <br />
                                 Legacy.
                             </h1>
