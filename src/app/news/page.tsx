@@ -7,8 +7,8 @@ import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 import HeroSpacer from '@/components/ui/HeroSpacer'
 import Button from '@/components/ui/Button'
 
-// Enable ISR
-export const revalidate = 3600
+// Disable caching for this page to instantly show admin updates
+export const dynamic = 'force-dynamic'
 
 async function getNews() {
     const supabase = createClient(

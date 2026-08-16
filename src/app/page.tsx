@@ -22,7 +22,7 @@ const TrioCarousel = dynamic(() => import('@/components/TrioCarousel'), {
     loading: () => <div className="min-h-[200px] bg-gray-100" />
 })
 
-export const revalidate = 3600
+export const revalidate = 0
 
 async function getLatestNews() {
     const supabase = createClient(
@@ -132,3 +132,4 @@ export default async function HomePage() {
             </main></div>
     )
 }
+

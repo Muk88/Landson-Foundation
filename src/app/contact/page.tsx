@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button'
 import { createClient } from '@supabase/supabase-js'
 import ContactForm from '@/components/contact/ContactForm'
 
-export const revalidate = 60
+export const dynamic = 'force-dynamic'
 
 export default async function ContactPage() {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -129,3 +129,4 @@ export default async function ContactPage() {
             </main></div>
     )
 }
+

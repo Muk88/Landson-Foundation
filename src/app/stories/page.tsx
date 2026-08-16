@@ -9,7 +9,7 @@ import HeroSpacer from '@/components/ui/HeroSpacer'
 import AlumniCarousel from '@/components/stories/AlumniCarousel'
 
 // Enable ISR
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 // Exact schema: id, name, title, story, achievement, image_url, year,
 //               is_featured, youtube_url, images (jsonb), created_at, updated_at
@@ -238,3 +238,4 @@ export default async function StoriesPage() {
             </main></div>
     )
 }
+

@@ -95,3 +95,15 @@ export interface Program {
     created_at: string
     updated_at: string
 }
+
+export interface Alumni {
+    id: string
+    name: string
+    current_role: string
+    quote: string
+    image_url: string
+    linkedin_url?: string
+    is_active: boolean
+    created_at: string
+    updated_at: string
+}

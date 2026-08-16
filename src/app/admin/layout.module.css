@@ -116,11 +116,16 @@
 }
 
 .menuButton {
-    background: none;
+    background: var(--color-red);
+    color: white;
     border: none;
     cursor: pointer;
     padding: 8px;
-    color: var(--color-gray-700);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(227, 30, 36, 0.2);
 }
 
 .overlay {

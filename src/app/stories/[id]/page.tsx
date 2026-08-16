@@ -13,7 +13,7 @@ function getYouTubeId(url: string) {
     return (match && match[2].length === 11) ? match[2] : null
 }
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export default async function StoryDetailPage({ params }: { params: { id: string } }) {
     const supabase = createClient(

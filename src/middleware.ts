@@ -85,7 +85,7 @@ export async function middleware(request: NextRequest) {
         console.log(`[Middleware] Session found: ${!!session}`)
 
         if (!session) {
-            console.log(`[Middleware] No session, redirecting to login`)
+            console.log(`[Middleware] No session, redirecting to login (disabled for client auth)`)
             // Redirect to login if not authenticated
             // const loginUrl = new URL(`${adminPath}/login`, request.url)
             // return NextResponse.redirect(loginUrl)

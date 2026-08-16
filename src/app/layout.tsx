@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
-import { Barlow_Condensed, Barlow_Semi_Condensed, Lato } from 'next/font/google'
-import Script from 'next/script'
+import RootLayoutClient from '@/components/layout/RootLayoutClient'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { Barlow_Condensed, Barlow_Semi_Condensed, Lato } from 'next/font/google'
+import type { Metadata } from 'next'
 import './globals.css'
 
 // ─── Display Font: hero titles, giant stat numbers ──────────────────────────
@@ -53,9 +53,9 @@ export default function RootLayout({
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </head>
             <body>
-                <Header />
-                {children}
-                <Footer />
+                <RootLayoutClient header={<Header />} footer={<Footer />}>
+                    {children}
+                </RootLayoutClient>
             </body>
         </html>
     )
